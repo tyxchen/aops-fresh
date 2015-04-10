@@ -1,0 +1,129 @@
+//-- MIXINS --//
+
+// This partial is licensed under the GNU General Public License Version 3
+// Full text is provided at:
+//
+// https://gnu.org/licenses/gpl-3.0.html
+
+//-- BEGIN PARTIAL --//
+
+// Autoprefixer
+// Forked from Libre's autoprefixer
+@mixin pre($property, $default: (webkit, moz, o)){
+	$list: (
+			user-select: (webkit, moz, ms),
+			transform  : (webkit, ms, o),
+			transition : (webkit, o),
+			animation  : (webkit, o),
+			box-sizing : (moz)
+		);
+	@each $prop, $value in $property{
+		@each $pre in map-get($list, $prop) or $default{
+			// GPU on WebKit
+			@if $prop == "transform" and $pre == "webkit"{
+				/* add GPU acceleration on WebKit */
+				-#{$pre}-#{$prop}: #{$value} translateZ(0px);
+			} @else{
+				-#{$pre}-#{$prop}: #{$value};
+			}
+		}
+		#{$prop}: #{$value};
+	}
+}
+
+// Move selector
+@mixin move($a, $b: null){
+	top: #{$a};
+	@if $b == null{ left: #{$a};}
+	@else { left: #{$b};}
+}
+
+// Dimensions of selector
+@mixin dimensions($a, $b: null){
+	width: #{$a};
+	@if $b == null { height: #{$a};}
+	@else { height: #{$b};}
+}
+
+// One-line content mixin for pseudo-elements
+@mixin content($content:"", $pos: null, $a: null, $b: null){
+	content: $content;
+	@if $pos != null and $a != null{
+		position: $pos;
+		@include move($a, $b);
+	} @else { @warn "Use of the content property is preferred instead of the content mixin in this case.";} // self-reminder
+}
+
+// linear-gradient mixin
+// Thanks to PythonNut for this mixin
+// http://www.artofproblemsolving.com/Forum/blog.php?u=81377&b=98748&r=151953#r151953
+// extra mods by me
+@mixin linear-gradient($dir, $stops: null, $options: null){
+	@if $stops == null{
+		$stops: $dir;
+		$dir  : "bottom";
+	}
+
+	$idir: unquote(if(type-of($dir) != number,
+			map-get((
+			"top"   : "bottom, ",
+			"bottom": "",         // implicitly top
+			"left"  : "right, ",
+			"right" : "left, "
+			), quote($dir) or $dir),
+		$dir + ", "));
+	$dir: unquote(if(type-of($dir) != number, "to #{$dir}, ", $dir + ", "));
+
+	$parsed_stops: "";
+	$first: false;
+	@each $stop, $colour in $stops{
+		$stop: $stop + if(unit($stop) == "", "%", unit($stop));
+		@if $first == true { $parsed_stops: $parsed_stops + ", ";}
+		@else              { $first: true;}
+		$parsed_stops: $parsed_stops + "#{$colour} #{$stop}";
+	}
+
+	$options: if($options != null, unquote(" " + $options), null);
+
+	background: -webkit-linear-gradient($idir#{$parsed_stops})#{$options};
+	background: -o-linear-gradient($idir#{$parsed_stops})#{$options};
+	background: linear-gradient($dir#{$parsed_stops})#{$options};
+}
+
+// radial-gradient mixin
+// based on above
+@mixin radial-gradient($type, $extent: null, $pos: null, $stops: null, $options: null){
+	@if $extent == null{ // only need to specify extent since that pretty much solves everything for the purposes of this css
+		$stops : $type;
+		$type  : "ellipse";
+		$extent: "farthest-corner";
+		$pos   : "center";
+	}
+
+	$type: $type + " ";
+
+	$iextent: unquote(if(type-of($extent) == number and $type == "circle", null, $extent + ", ")); // can't get legacy syntax to support circles with radius
+	$extent : unquote(if($extent == "farthest-corner", null, if(type-of($extent) == number, $extent, if($pos != null, $extent, $extent + ", "))));
+
+	$ipos: unquote(if($pos != "center", $pos + ", ", null));
+	$pos : unquote("at " + $pos + ", ");
+
+	$parsed_stops: "";
+	$first: false;
+	@each $stop, $colour in $stops{
+		$stop: $stop + if(unit($stop) == "", "%", unit($stop));
+		@if $first == true { $parsed_stops: $parsed_stops + ", ";}
+		@else              { $first: true;}
+		$parsed_stops: $parsed_stops + "#{$colour} #{$stop}";
+	}
+
+	$options: if($options != null, unquote(" " + $options), null);
+
+	background: -webkit-radial-gradient($ipos#{$type}$iextent#{$parsed_stops})#{$options};
+	background: -o-radial-gradient($ipos#{$type}$iextent#{$parsed_stops})#{$options};
+	background: radial-gradient(#{$type}$extent$pos#{$parsed_stops})#{$options};
+}
+
+//-- END PARTIAL --//
+
+@debug "Finished processing _mixins.scss";

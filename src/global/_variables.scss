@@ -1,0 +1,26 @@
+//-- VARIABLES --//
+
+// Base colours
+$bg: rgb(253, 253, 254);
+$fg: black;
+$t: transparent; // transparency is a big one in Fresh
+$sidebg: rgb(82, 127, 141);
+$sidefg: white;
+
+// Link colours
+$link: rgb(39, 139, 194);
+$hover: rgb(255, 5, 5);
+
+// Icon colours
+$icons: rgb(216, 216, 216);
+$icons-tabz: rgb(42, 42, 42);
+
+// Fonts
+$helvetica: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, sans-serif;
+$mss: 'Microsoft Sans Serif', sans-serif;
+
+// Inputs
+$textarea: rgb(210, 210, 220);
+$main_textarea: rgb(237, 237, 237);
+
+@debug "Finished processing _variables.scss";
