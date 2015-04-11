@@ -1,0 +1,21 @@
+// html background already defined
+#main > div:not(.total-posts):last-of-type, #postform {
+	margin-bottom: 35px;
+}
+/*-- Misc. --*/
+
+dd {
+	font-style: italic;
+	margin-left: 0;
+}
+hr {
+	@extend %borderless;
+	height: 1px;
+	@include linear-gradient(right, (0: $bg, 50: rgb(187, 187, 187), 100: $bg));
+}
+#about-owner-widget > .widget-content, #stats-widget > .widget-content {
+	padding-bottom: 15px;
+}
+#feed-widget {
+	@extend %inline-widget;
+}

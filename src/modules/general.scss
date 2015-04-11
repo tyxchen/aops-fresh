@@ -1,0 +1,164 @@
+//-- Reset --//
+
+fieldset, textarea, select, a, input, #wrapper, #header {
+	@extend %borderless;
+	outline: none;
+}
+*:not(#content) > .clear, input[value="Search"], #search-widget a, .entry h2 img, .author img, .post-comment[href=""], .deleted, #main > p:not([id]), [alt="+"], [alt="-"], #post-new-entry-img {
+	@extend %none;
+}
+
+/*-- Selection and WebKit scrollbars --*/
+
+*::-moz-selection {
+	background: rgba(130, 211, 214, .44);
+	color: black !important;
+}
+*::selection {
+	background: rgba(130, 211, 214, .44);
+	color: black !important;
+}
+
+*::-webkit-scrollbar {
+	@include dimensions(10px);
+	background: $t;
+}
+*::-webkit-scrollbar-thumb {
+	background: rgba(200, 200, 200, .3);
+	padding: 2px;
+	border-radius: 6px;
+	box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset;
+	&:hover {
+		background: rgba(200, 200, 200, .6);
+	}
+}
+*::-webkit-scrollbar-button {
+	max-height: 1px; max-width: 1px;
+}
+*::-webkit-scrollbar-corner {
+	display: none;
+}
+
+
+h2 {
+	color: $fg;
+}
+img:not([src*="smilies"]):not([class^="latex"]):hover {
+	background: url("data:image/png;UTF-8;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gMJCy8HXmWgigAAAC5JREFUOMtj/P//fwMDccCIGEVMDFQGowaOGjgYDGQhNgcwMDCcGw3DUQNHrIEA0WgE2XBobBkAAAAASUVORK5CYII=") repeat;
+}
+a:link, a:visited {
+	color: $link;
+}
+a:hover {
+	color: $hover;
+	text-decoration: underline;
+}
+input {
+	-webkit-tap-highlight-color: $t; // stop WebKit from applying distracting tap outline
+}
+// #side
+[type="text"], textarea {
+	/* $textarea defined in _variables.scss */
+	background: $textarea;
+	color: rgb(54, 54, 54);
+	&:hover {
+		background: darken($textarea, 1%);
+	}
+	&:focus {
+		background: darken($textarea, 2%);
+	}
+	#main & {
+		/* $main_textarea defined in _variables.scss */
+		background: $main_textarea;
+		color: $fg;
+		font: 13px/1.9em 'Open Sans', sans-serif;
+		padding: 5px;
+		box-shadow: 0 0 1px rgba(0, 0, 0, .1);
+		&:hover {
+			background: darken($main_textarea, 1%);
+		}
+		&:focus {
+			background: darken($main_textarea, 2%);
+		}
+	}
+}
+/*-- Buttons --*/
+// TODO: fix for new AoPS layout
+//[type="button"]:not(.btnbbcode), [type="submit"], [type="reset"] {
+//	@include linear-gradient((0: rgba(228, 228, 228, .97), 100: rgba(221, 221, 221, .97))); // direction and cover unit predefined in mixin
+//	padding: 5px !important;
+//	box-shadow: 0 0 1px rgba(0, 0, 0, .3) inset;
+//	cursor: pointer;
+//	&:hover {
+//		@include linear-gradient((0: rgba(228, 228, 228, .86), 100: rgba(221, 221, 221, .86)));
+//	}
+//	&:active {
+//		@include radial-gradient((0: rgba(213, 213, 213, .8), 60: rgba(201, 201, 201, .8), 100: rgba(190, 190, 190, .8)));
+//	}
+//}
+
+/*-- Checkboxes and radio buttons --*/
+
+%checkbefore {
+	/* %checkbefore */
+	content: '\2713';
+	position: relative;
+	background: rgb(206, 206, 206) !important;
+	color: $t;
+}
+%checkcheckedbefore {
+	/* %checkcheckedbefore */
+	color: rgb(50, 50, 50);
+}
+
+#main [type="checkbox"], #main [type="radio"] {
+	&:before {
+		@extend %checkbefore;
+		@include move(-3px);
+	}
+	&:checked:before {
+		@extend %checkcheckedbefore;
+	}
+}
+#main [type="checkbox"]::before {
+	padding: 0 3px;
+}
+#main [type="radio"]::before {
+	content: '\25CF';
+	padding: 0 5px 2px;
+	border-radius: 16px;
+}
+//#side [type="checkbox"] {
+//	& + *:before {
+//		@extend %checkbefore;
+//		@include move(-2px, -20px);
+//		padding: 1px 4px;
+//		margin-right: -20px;
+//	}
+//	&:checked {
+//		outline: none; // prevent distracting outline
+//		+ *:before {
+//			@extend %checkcheckedbefore;
+//		}
+//	}
+//}
+
+/*-- Errors --*/
+// TODO fix for new AoPS classes
+//#blog-errors {
+//	position: absolute;
+//	@include dimensions(100%, 4.3em);
+//	background: rgb(197, 0, 0);
+//	font: normal 1.6em/2em 'Open Sans', sans-serif;
+//	padding: 10px;
+//	margin: 0;
+//	& + #wrapper #header h1 {
+//		z-index: -2;
+//	}
+//}
+//.error {
+//	background: rgb(207, 0, 0);
+//	color: black;
+//	font: normal 1.4em/2.5em 'Open Sans', sans-serif;
+//	padding: 10px;
+//}

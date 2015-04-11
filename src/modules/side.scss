@@ -1,0 +1,255 @@
+/*-- Sidebar --*/
+
+#side {
+	position: fixed;
+	@include move(0, -340px);
+	height: 100%;
+	background: $sidebg;
+	color: $sidefg;
+	font: 12px/2em $helvetica;
+	padding-left: 38px;
+	padding-right: 50px;
+	box-shadow: 0 0 5px $sidebg;
+	z-index: 100;
+	@include pre((transition: .5s ease));
+	&:after {
+		@include content('+', fixed, 0, 0);
+		display: block;
+		height: 100%;
+		background: $sidebg;
+		color: rgb(245, 245, 255);
+		font: 21pt 'Open Sans', Helvetica, sans-serif;
+		padding: 20px 12px 17px;
+		@include pre((transition-delay: .35s));
+	}
+	&:before {
+		@include content('', fixed, 31px, 39px);
+		display: block;
+		border: {
+			width: 9px 0 9px 9px;
+			color: $t $sidebg;
+			style: solid;
+		}
+		pointer-events: none;
+	}
+	&:hover {
+		left: 0;
+		&:after {
+			color: $t;
+			@include pre((transition-delay: 0s));
+		}
+		&:before {
+			@extend %none;
+		}
+	}
+
+	a:link, a:visited {
+		color: rgb(216, 241, 250);
+		@include pre((transition: .2s ease-in-out));
+	}
+	a:hover {
+		color: rgb(207, 242, 255);
+		text: {
+			decoration: none;
+			shadow: 0 0 3px $sidefg;
+		}
+		@include hardwareAccel(); // GPU-accelerate text shadows
+	}
+	// TODO: fix classes
+	.quotetitle, .quotecontent, .codecontent {
+		background: $sidefg;
+		color: rgb(50, 50, 50);
+		width: 300px;
+	}
+	.quotetitle, .quotecontent {
+		border-left-color: rgb(255, 187, 25);
+	}
+	.codetitle, .codecontent {
+		text-align: left !important;
+	}
+	img.latex, img.latexcenter {
+		background: rgba(255, 255, 255, .5) !important;
+		padding: 1px .4999px; // so low screen resolutions won't have an ugly 1px of padding
+	}
+}
+
+/*-- Widgets --*/
+// TODO: extend tags widget
+
+.widget, .block {
+	padding: 1.5em !important;
+	margin: 0 !important;
+}
+.widget-title {
+	@extend %noselect;
+	color: $sidefg;
+	border-bottom: 2px solid rgb(155, 202, 218);
+	overflow: hidden;
+}
+.widget {
+	& > .widget-content {
+		position: fixed;
+		left: 280px;
+		width: 340px;
+		min-height: 50px;
+		max-height: 250px;
+		@extend %none;
+		background: $sidebg;
+		padding: 10px 0 5px 0;
+		border-left: 70px solid $t;
+		box-shadow: 0 0 5px $sidebg;
+		overflow-x: hidden;
+		resize: both;
+		border-radius: 1px;
+		@include pre((transition: opacity .3s ease-in-out));
+	}
+	&:hover {
+		& > .widget-header > .widget-title {
+			color: darken($sidebg, 11%);
+			border-bottom: none;
+		}
+		& > .widget-header {
+			background: rgb(155, 202, 218);
+			padding: 5px;
+			cursor: default;
+			border-radius: 10px;
+		}
+		& > .widget-content {
+			display: block;
+		}
+	}
+	@for $i from 2 through 9 {
+		&:nth-of-type(#{$i}) > .widget-content {
+			top: 65px * $i - 55px;
+		}
+	}
+}
+
+/*-- Description --*/
+
+#user-menu-widget {
+	a:link, a:visited, a:hover {
+		color: $sidefg !important;
+	}
+	&:before {
+		content: 'Description';
+		color: $sidefg;
+		font-weight: bold !important;
+		font-size: 13px;
+		padding-right: 144px;
+		padding-bottom: 5px;
+		border-bottom: 2px solid rgb(155, 202, 218);
+		cursor: default;
+	}
+	& > div {
+		@extend %none;
+	}
+	&:hover {
+		&:before {
+			background: rgb(155, 202, 218);
+			color: darken($sidebg, 11%);
+			padding: 10px 139px 10px 5px;
+			border-radius: 10px;
+		}
+		& > div {
+			position: fixed;
+			@include move(9px, 280px);
+			width: 340px;
+			max-height: 90vh;
+			display: block;
+			background: $sidebg;
+			padding: 0 7px 10px 13px;
+			border-left: 50px solid $t;
+			box-shadow: 0 0 5px $sidebg;
+			overflow-x: hidden;
+		}
+	}
+}
+
+/*-- Archives --*/
+
+#archive-widget > .widget-content {
+	@extend %block-widget;
+	& > div {
+		display: block !important;
+		max-height: 0px;
+		margin: 20px 0 -10px;
+		overflow: hidden;
+		@include pre((transition: max-height .5s ease-in-out));
+	}
+	& > div[style="display: block;"], & > div:not([style]) {
+		max-height: 250em;
+	}
+	& > span {
+		position: absolute;
+	}
+}
+.archive-row {
+	border-bottom: 1px dashed $sidefg;
+	padding: 5px;
+	width: 90%;
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+/*-- SHOUT! SHOUT! SHOUT! --*/
+// TODO: fix classes & layout
+
+#shouts-widget > .widget-content {
+	@extend %block-widget;
+}
+li.row1, li.row2 {
+	width: 300px;
+	padding-top: 2px;
+	overflow-x: auto;
+}
+#shout_post {
+	& > .fields1 {
+		padding-top: 10px;
+	}
+	& > fieldset {
+		&[style="text-align:center"] {
+			@extend .fields1;
+			padding-bottom: 20px;
+		}
+		& > ul {
+			@extend .fields1;
+			margin-top: -12px;
+		}
+	}
+	#message {
+		max-width: 284px;
+		margin-top: 0 !important;
+	}
+	.quotecontent, .quotetitle, .codecontent {
+		width: auto;
+	}
+}
+.shout_footer::before {
+	content: '> ';
+	font-weight: bold;
+	margin-right: 5px;
+}
+input[name="shouts_ids[]"] {
+	margin-left: -2px;
+}
+#explain:not(:empty) {
+	width: 290px;
+	background: rgb(200, 200, 200);
+	color: rgb(50, 50, 50);
+	padding: 2px;
+	margin: -2px 0 6px;
+	//@include pre(transition, .3s ease-in-out .1s); //credit to PythonNut
+}
+
+/*-- Search --*/
+
+#search-widget {
+	@extend %inline-widget;
+	#blog_keywords {
+		padding: 5px;
+		margin-left: -6px;
+		margin-bottom: 5px;
+	}
+}

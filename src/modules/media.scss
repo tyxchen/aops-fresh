@@ -1,0 +1,207 @@
+/*-- @media queries --*/
+
+/* Sets default viewport size for mobile browsers */
+
+@-moz-viewport {width: device-width;}@-ms-viewport {width: device-width;}@-o-viewport {width: device-width;}@-webkit-viewport {width: device-width;}@viewport {width: device-width;}
+
+/* The real stuff */
+
+@media only screen and (max-width: 800px), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (min-resolution: 132dpi), only screen and (min-resolution: 1.5dppx) {
+
+	//-- Define --//
+
+	@mixin moveright($a, $b) {
+		top: #{$a};
+		right: #{$b};
+	}
+	$mediabg: $link; // semantics, because we're using $link a lot here
+
+	/*-- General --*/
+
+	html, body, #main > * {
+		background: rgb(254, 254, 255);
+	}
+	body {
+		overflow-x: auto !important;
+	}
+	#wrapper {
+		position: relative;
+		top: 40px;
+	}
+	#main {
+		@include move(25px !important, 25px);
+		width: 98%;
+		overflow: hidden !important;
+	}
+	#side {
+		opacity: 0;
+		visibility: hidden;
+		-webkit-transition: 0s linear;
+		transition: 0s linear;
+		&:before, &:after {
+			display: none;
+		}
+	}
+
+	/*-- Nav-bar --*/
+
+	#navigation_box {
+		@include move(0);
+		@include dimensions(100%, auto);
+		background: $mediabg;
+		line-height: 1.9em;
+		padding: 10px;
+		border: none;
+		z-index: 100000;
+		a:link, a:visited, a:hover {
+			color: $sidefg;
+		}
+	}
+	#left_navigation_box {
+		a:nth-last-of-type(2):not([href*="apsjour.php"]) {
+			display: block;
+			margin-bottom: -15px !important;
+		}
+		a:last-of-type {
+			display: none;
+		}
+	}
+	#right_navigation_box {
+		a {
+			position: absolute;
+			@include moveright(0, 20px);
+			@include dimensions(35px);
+			color: $t;
+			background: $t;
+			font-size: .01px;
+			float: right;
+		}
+		a:before, a:after {
+			content: '\00A0';
+			position: absolute;
+			@include pre((transform: rotate(45deg)));
+		}
+		a:before {
+			@include moveright(8px, 4px);
+			@include dimensions(4px, 11px);
+			font-size: 8px;
+			border: 5px solid $sidefg {
+				width: 0 5px;
+				radius: 10px;
+			}
+		}
+		a:after {
+			@include moveright(12px, 16px);
+			width: 5px;
+			font-size: 15px;
+			background: $sidefg;
+		}
+	}
+
+	/*-- Misc. --*/
+
+	#header h1 {
+		left: 33px;
+		overflow-x: hidden;
+	}
+	[type="checkbox"]::before, [type="radio"]::before {
+		left: -1px;
+	}
+	#blog-errors {
+		display: none;
+		& + #wrapper #header, & + #wrapper #header h1 {
+			background: rgb(197, 0, 0);
+			z-index: 1;
+		}
+	}
+}
+
+/*-- Shouts iff you rotate screen to landscape --*/
+
+@media only screen and (max-width: 800px) and (orientation: landscape), only screen and (-webkit-min-device-pixel-ratio: 1.5) and (orientation: landscape), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (min-resolution: 132dpi) and (orientation: landscape), only screen and (min-resolution: 1.5dppx) and (orientation: landscape) {
+	#side {
+		opacity: 1;
+		visibility: visible;
+		-webkit-transition: left .5s cubic-bezier(.1, .8, .2, .9), opacity .5s ease;
+		transition: left .5s cubic-bezier(.1, .8, .2, .9), opacity .5s ease;
+		&, &:hover {
+			position: absolute;
+			left: 100%;
+			@include dimensions(0);
+			background: none;
+			box-shadow: none;
+		}
+		& > *:not(#shouts-widget) {
+			display: none;
+		}
+	}
+	#shouts-widget > .widget-content {
+		position: absolute;
+		@include move(-40px, 15px);
+		display: block;
+		width: auto;
+		max-height: 10000000%;
+		border: none;
+		box-shadow: none;
+		overflow: visible;
+	}
+	#shout_post {
+		width: 343px;
+		background: rgb(39, 139, 194);
+		border-left: 40px solid $t;
+	}
+}
+
+@media all and (max-width: 319px) {
+	body {
+		& > div {
+			display: none;
+		}
+		&:before {
+			@include content("Error: Your screen is way too small.\A\A\A Do Gangnam style to exit.", absolute, 40%, 0);
+			width: 100%;
+			color: $fg;
+			font-size: 17px;
+			white-space: pre;
+			overflow: hidden;
+		}
+		&:first-line {
+			font-size: 25px;
+		}
+	}
+}
+
+@media print {
+	#navigation_box, #post-new-entry, #side, .modactions, .total-posts, addthis_button {
+		display: none;
+	}
+	body {
+		background: white;
+		a:link, a:visited, a:hover, .hidden-label {
+			color: black !important;
+			text-decoration: none !important;
+		}
+	}
+	#header h1 {
+		@include move(10px, 0);
+		width: 100%;
+		text-align: center !important;
+		padding-bottom: 40px;
+		&:after {
+			width: 100%;
+			text-align: center;
+		}
+	}
+	#main {
+		@include move(25px !important, 0);
+		width: 60%;
+		margin: 0 20%;
+	}
+	.message a:not([class^="latex"])::after {
+		content: " (@\00A0" attr(href) ")";
+		font-size: 13px !important;
+	}
+	div.codecontent, div.codecontent > div > ol {
+		max-height: none !important;
+	}
+}

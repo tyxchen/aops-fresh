@@ -1,0 +1,42 @@
+/*-- General --*/
+
+html {
+	background-color: $sidebg;
+}
+body {
+	min-height: 400px;
+	background: $bg;
+	font: normal 8pt/1.2em $helvetica;
+	padding-bottom: 40px;
+	overflow-x: hidden;
+
+	-webkit-font-smoothing: antialiased; // nicer antialiasing for WebKit on OSX
+	-moz-osx-font-smoothing: grayscale;  // same for Firefox
+
+	text-rendering: optimizeLegibility;  // optimize legibility of text
+
+	&::-webkit-scrollbar {
+		@include dimensions(13px);
+	}
+	&::-webkit-scrollbar-thumb {
+		border: 2px solid $bg;
+	}
+}
+/*-- Main content --*/
+
+#wrapper {
+	width: 100%;
+	background: none;
+	margin-left: 0;
+}
+#main {
+	position: relative;
+	@include move(70px !important, 100px);
+	width: 80%;
+	& > * {
+		background: $bg;
+	}
+	& > h1 {
+		margin-bottom: 36px;
+	}
+}

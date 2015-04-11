@@ -1,0 +1,58 @@
+/*-- Nav-bar --*/
+
+#navigation_box {
+	@extend %noselect;
+	position: absolute;
+	@include move(116px, 100px);
+	width: 88%;
+	background: $bg;
+	color: $t;
+	padding: 2px 10px 22px;
+	border-bottom: 2px solid rgb(248, 248, 249);
+	overflow-x: auto;
+	a {
+		color: $link;
+		font-size: 15px;
+		text-transform: uppercase;
+		margin-right: 8px;
+		&:hover {
+			color: $hover;
+		}
+	}
+}
+#right_navigation_box {
+	float: left;
+}
+#left_navigation_box a:last-child {
+	padding-right: 10px;
+}
+
+/*-- Header --*/
+
+#header {
+	@include dimensions(100%, 90px);
+	background: rgb(245, 245, 245);
+	overflow: hidden;
+	h1 {
+		position: relative;
+		left: 100px;
+		width: calc(100% - 100px); // allow scrolling
+		font: 25pt/2em 'Times New Roman', times, serif;
+		text-align: left !important;
+		padding-bottom: 24px;
+		overflow: hidden;
+		&:after {
+			@include content("Welcome to my blog!", absolute, 55px, 0);
+			color: rgb(175, 175, 175);
+			font: 500 11px/1.5em $helvetica;
+		}
+		&::-webkit-scrollbar, &::-webkit-scrollbar-thumb {
+			height: 6px;
+			box-shadow: none;
+		}
+	}
+	&:hover h1 {
+		@include WebKitCalc(padding-bottom, 10px, 16px); // WebKit scrollbar
+		overflow-x: auto;
+	}
+}

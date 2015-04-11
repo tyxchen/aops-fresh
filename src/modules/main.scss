@@ -1,0 +1,316 @@
+
+/*-- Post new entry --*/
+
+#post-new-entry {
+	&:link, &:visited {
+		color: $fg !important;
+		font-size: 12px;
+	}
+	&:hover {
+		text-decoration: none;
+	}
+	&:before {
+		content: '+';
+		padding: 3px 7px;
+		border: 1px solid; // default colour is black
+		border-radius: 15px;
+		margin-right: 5px;
+	}
+}
+#post-new-entry-p {
+	margin: 0 auto 1.6em;
+}
+
+/*--Entries & Comments --*/
+
+div.entry {
+	padding-bottom: 40px;
+	@extend %borderless;
+}
+.entry {
+	h1 a:link, h1 a:visited, h2 a:link, h2 a:visited {
+		color: $fg;
+		line-height: 1.5em;
+
+		// no @include due to multiple statements
+		-webkit-transition: color .4s ease-in-out, -webkit-transform .24s ease;
+		-o-transition: color .4s ease-in-out, -o-transition .24s ease;
+		transition: color .4s ease-in-out, transform .24s ease;
+	}
+	h1 a:hover, h2 a:hover {
+		text-decoration: none;
+	}
+	h1 a:hover {
+		color: $hover;
+	}
+	strong {
+		& > a:link, & > a:visited {
+			display: inline-block;
+			color: rgb(60, 60, 60);
+			font: normal 1em/1 $mss;
+			@include pre((transform: skew(-10deg)));
+		}
+		& > a:hover {
+			color: $fg;
+			@include pre((transform: skew(0deg)));
+		}
+	}
+	& > h2 {
+		margin-top: .3em;
+		& > a:before {
+			@include content("> ",relative, "1px; top: -moz-calc(-1px)", 5px); // Little Bobby Tables
+			line-height: 1em;
+			padding-right: 5px;
+			font-weight: bold;
+		}
+	}
+}
+div.entrywrap {
+	@extend %borderless;
+	background: $t;
+}
+.message {
+	font: 13px/2em 'Open Sans', $mss;
+	img {
+		max-width: 100%;
+	}
+	& ~ * a:link, & ~ * a:visited {
+		text-decoration: none;
+	}
+}
+.efooter {
+	position: relative;
+	top: 5px;
+}
+
+div.comment {
+	@extend %borderless;
+	margin-top: 0;
+	margin-bottom: 20px;
+}
+.row1, .row2 {
+	background: $t;
+}
+.author {
+	font-size: 11px;
+	& > a:before {
+		@include content('>', relative, -1px, 0px);
+		color: $fg;
+		font-weight: bold !important;
+		font-size: inherit;
+		margin-right: 4px;
+	}
+	& > strong > a:link, & > strong > a:visited {
+		color: $fg;
+		font-style: italic !important;
+		font-weight: normal !important;
+	}
+	& > strong > a:hover {
+		font-style: normal !important;
+	}
+}
+
+/*-- Icons --*/
+
+// $icons defined in _variables.scss
+.modactions {
+	:before, :after {
+		@extend %pseudo;
+	}
+	%standard {
+		/* %standard */
+		@extend %noselect;
+		color: $t;
+		font-size: 1px;
+		position: relative;
+	}
+	%pseudo-standard {
+		/* %pseudo-standard */
+		background: $icons;
+		@include pre((transition: .2s ease));
+	}
+	%pseudo-cover {
+		/* %pseudo-cover */
+		@include dimensions(20px);
+		background: $t;
+	}
+	a[title="Edit post"] {
+		@extend %standard;
+		&:after, :before, :after {
+			@extend %pseudo-standard;
+		}
+		&:after {
+			@include move(-14px);
+			@extend %pseudo-cover;
+		}
+		:before {
+			@extend %rte45;
+			@include move(-12px, -5px);
+			@include dimensions(5px, 14px);
+			border-bottom: 1px solid $bg;
+			z-index: 1;
+		}
+		:after {
+			@include move(-1px, -10px);
+			@include dimensions(4px);
+			@include pre((transform: skew(-10deg, -10deg)));
+		}
+		&:hover {
+			:before, :after {
+				background: lighten($link, 10%);
+			}
+		}
+	}
+	a[title="Delete post"] {
+		@extend %standard;
+		&:after, :before, :after {
+			@extend %pseudo-standard;
+		}
+		&:after {
+			@include move(-14px, -7px);
+			@extend %pseudo-cover;
+		}
+		:before {
+			@extend %rte45;
+			@include dimensions(4px, 13px);
+			@include move(-10px, 0.5px);
+		}
+		:after {
+			@include dimensions(11px);
+			@include move(-11px, -5px);
+			background: $t;
+			border: 2px solid $icons;
+			border-radius: 50px;
+		}
+		&:hover {
+			:before {
+				background: rgb(200, 0, 0);
+			}
+			:after {
+				border-color: rgb(200, 0, 0);
+			}
+		}
+	}
+	a[title="Report this post"] {
+		@extend %standard;
+		&:after, :before, :after {
+			@extend %pseudo-standard;
+		}
+		&:after {
+			@include move(-14px, -1px);
+			@extend %pseudo-cover;
+		}
+		:before {
+			content: "!";
+			@include move(-11px, 7px);
+			background: $t;
+			color: $bg;
+			font-size: 12px;
+			font-weight: bold;
+			z-index: 1;
+		}
+		:after {
+			@include move(-15px, 0);
+			@include dimensions(0);
+			background: $t;
+			border: {
+				width: 0 9px 18px;
+				color: $icons $t;
+				style: solid;
+			}
+		}
+		&:hover {
+			:after {
+				border-color: goldenrod $t;
+			}
+		}
+	}
+}
+/* While strictly not icons, tags are still included because of their passing resemblance */
+// TODO: fix class to new AoPS tags
+.post-tags {
+	color: $t;
+	font-size: 0.01px;
+	margin: 15px 0 10px !important;
+	a {
+		color: rgb(119, 119, 119);
+		font-size: 8pt;
+		background: rgb(230, 230, 230);
+		padding: 2px 5px 2px 0;
+		margin-right: 5px;
+		&:before {
+			content: "#";
+			background: rgb(225, 225, 225); // \\?: need to remove?
+			padding: 2px 3px;
+			margin-right: 3px;
+		}
+		&:hover {
+			color: rgb(102, 102, 102);
+			background: rgb(225, 225, 225);
+
+			&:before {
+				background: rgb(205, 205, 205);
+			}
+		}
+	}
+}
+
+/*-- Hidden Text --*/
+// TODO: fix class to new hidden labels
+
+.hidden-label {
+	color: lighten($link, 18%);
+	text-decoration: none;
+	&:hover {
+		color: lighten($hover, 9%);
+		text-decoration: underline;
+	}
+}
+
+/*-- Quotes & Code --*/
+// TODO: fix classes
+div.quotetitle, div.quotecontent {
+	@extend %borderless;
+	background: rgb(243, 243, 240);
+	padding: 10px;
+	border-left: 5px solid $sidebg;
+}
+.codetitle {
+	@extend %none;
+}
+.codecontent {
+	max-height: 27em !important;
+	font: 12px/2em Consolas, monospace, sans-serif;
+	padding: 10px;
+	border: 1px solid rgb(219, 219, 206);
+	overflow: auto;
+	white-space: pre;
+	a:hover {
+		text-decoration: none;
+	}
+	& > div > ol {
+		height: auto;
+		max-height: 24em;
+		padding: 10px 40px;
+		margin: -10px;
+		overflow: auto;
+	}
+	& > div:after {
+		content: attr(class);
+		display: block;
+		background: rgb(235, 235, 235);
+		color: rgb(128, 128, 128);
+		font: 12px/2em $helvetica !important;
+		text-transform: uppercase;
+		padding: 6px 0 3px 10px;
+		margin: 10px -10px -10px;
+	}
+	&:hover > div:after {
+		background: rgb(225, 225, 225);
+	}
+
+	/* special code types */
+	& > .csharp:after  { content: 'C#';}
+	& > .cpp:after  { content: 'C++';}
+	& > .objc:after  { content: 'Objective-C';}
+}
