@@ -1,24 +1,38 @@
 Fresh
 =====
 
-By NeoMathematicalKid
----------------------
-
 License
-=======
+-------
 
 Fresh is licensed under the [GNU GPL v2](http://www.gnu.org/licenses/gpl-2.0.html) or later. The Terms and Conditions of this license can be viewed by clicking the link.
 
-The work
-========
+Building
+--------
 
-Fresh is written in [SASS 3.3.0](http://sass-lang.com) (SCSS superset syntax). This means that in order to compile it into CSS, you must have SASS 3.3.0 installed on your computer. Installation instructions can be found [here](http://sass-lang.com/install).
+This project is built with [Gulp](http://gulpjs.com).
 
-Compiling Fresh
-===============
 
-Fresh is compiled with the following command:
+First, clone this repository:
 
-	sass --scss --style extended --precision 5 --E UTF-8 fresh.scss:fresh.css
+	$ mkdir fresh
+	$ cd fresh/
+	$ git clone https://github.com/tyxchen/aops-fresh.git .
 
-Note that the output is in the same directory as the source file fresh.scss. If you don't feel comfortable about compiling Fresh on, say, your desktop, you can move it to a desired directory and the output will end up there.
+Now, install Gulp:
+
+	$ [sudo] npm install -g gulp
+
+After this, install the necessary Gulp plugins:
+
+	$ npm install gulp gulp-autoprefixer gulp-rename gulp-ruby-sass gulp-sourcemaps
+
+You can now run Gulp.
+
+	$ gulp
+	[13:30:47] Using gulpfile ~/Documents/fresh/Gulpfile.js
+	[13:30:47] Starting 'build:sass'...
+	[13:30:47] Starting 'watch'...
+	[13:30:47] Finished 'watch' after 19 ms
+	[13:30:48] Finished 'build:sass' after 751 ms
+	[13:30:48] Starting 'default'...
+	[13:30:48] Finished 'default' after 5.09 μs
