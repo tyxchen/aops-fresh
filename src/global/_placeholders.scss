@@ -1,25 +1,25 @@
 //-- PLACEHOLDERS --//
 
-%pseudo{
+%pseudo {
 	/* %pseudo */
 	content: "";
 	position: absolute;
 	display: inline-block;
 }
-%rte45{
+%rte45 {
 	/* %rte45 */
 	@include pre((transform: rotate(45deg)));
 }
-%block-widget{
+%block-widget {
 	/* %block-widget */
 	top: 0px;
 	min-height: 100% !important;
 	padding: 0 !important;
 	resize: none;
 }
-%inline-widget{
+%inline-widget {
 	/* %inline-widget */
-	& > .widget-content{
+	& > .widget-content {
 		position: static;
 		width: 100%;
 		padding: 20px 0 0;
@@ -29,19 +29,19 @@
 		resize: none;
 		@extend %none;
 	}
-	&:hover > .widget-content{
+	&:hover > .widget-content {
 		display: block;
 	}
 }
-%none{
+%none {
 	/* %none */
 	display: none;
 }
-%borderless{
+%borderless {
 	/* %borderless */
 	border: none;
 }
-%noselect{
+%noselect {
 	/* %noselect */
 	@include pre((user-select: none));
 }

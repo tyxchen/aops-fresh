@@ -1,20 +1,20 @@
-@mixin hardwareAccel(){
+@mixin hardwareAccel() {
 	-webkit-transform: translateZ(0px);
 	        transform: translateZ(0px);
 	-webkit-perspective: 1000;
 	        perspective: 1000;
 }
 
-@mixin improveAntiAlias(){
+@mixin improveAntiAlias() {
 	box-shadow: 0 0 1px $t;
 }
 
-@mixin WebKitCalc($property, $value, $WebKitValue){
+@mixin WebKitCalc($property, $value, $WebKitValue) {
 	#{$property}: #{$value};
 	#{$property}: -webkit-calc(#{$WebKitValue});
 }
 
-@mixin hacks(){
+@mixin hacks() {
 	@include hardwareAccel();
 	@include improveAntiAlias();
 }

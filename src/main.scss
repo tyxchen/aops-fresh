@@ -46,7 +46,7 @@
 
 /* TESTBED FOR MIXINS */
 
-#test{
+#test {
 	@include pre((box-sizing: padding-box));
 	@include move(5px, 3em);
 	@include dimensions(10px);
@@ -60,31 +60,51 @@
 
 //-- Reset --//
 
-fieldset, textarea, select, a, input, #wrapper, #header, #blog-errors{
+fieldset, textarea, select, a, input, #wrapper, #header, #blog-errors {
 	@extend %borderless;
 	outline: none;
 }
-*:not(#content) > .clear, input[value="Search"], .widget:not([id]) a, .entry h2 img, .author img, .post-comment[href=""], .deleted, #smiley-box a[href="#"], #main > p:not([id]), [alt="+"], [alt="-"], .total-posts .page-sep, #post-new-entry-img{
+*:not(#content) > .clear, input[value="Search"], .widget:not([id]) a, .entry h2 img, .author img, .post-comment[href=""], .deleted, #smiley-box a[href="#"], #main > p:not([id]), [alt="+"], [alt="-"], .total-posts .page-sep, #post-new-entry-img {
 	@extend %none;
 }
 
 /*-- Selection and WebKit scrollbars --*/
 
-*::-moz-selection { background: rgba(130, 211, 214, .44); color: black !important;}
-*::selection { background: rgba(130, 211, 214, .44); color: black !important;}
+*::-moz-selection {
+	background: rgba(130, 211, 214, .44);
+	color: black !important;
+}
+*::selection {
+	background: rgba(130, 211, 214, .44);
+	color: black !important;
+}
 
-*::-webkit-scrollbar        { @include dimensions(10px); background: $t;}
-*::-webkit-scrollbar-thumb  { background: rgba(200, 200, 200, .3); padding: 2px; border-radius: 6px; box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset;
-&:hover                     { background: rgba(200, 200, 200, .6);}
-*::-webkit-scrollbar-button { max-height: 1px; max-width: 1px;}
-*::-webkit-scrollbar-corner { display: none;}
+*::-webkit-scrollbar {
+	@include dimensions(10px);
+	background: $t;
+}
+*::-webkit-scrollbar-thumb {
+	background: rgba(200, 200, 200, .3);
+	padding: 2px;
+	border-radius: 6px;
+	box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset;
+	&:hover {
+		background: rgba(200, 200, 200, .6);
+	}
+}
+*::-webkit-scrollbar-button {
+	max-height: 1px; max-width: 1px;
+}
+*::-webkit-scrollbar-corner {
+	display: none;
+}
 
 /*-- General --*/
 
-html{
+html {
 	background-color: $sidebg;
 }
-body{
+body {
 	/* force sass to output @charset */
 	var-charset: "ö";
 	min-height: 400px;
@@ -98,52 +118,52 @@ body{
 
 	text-rendering: OptimizeLegibility;  // optimize legibility of text
 
-	&::-webkit-scrollbar{
+	&::-webkit-scrollbar {
 		@include dimensions(13px);
 	}
-	&::-webkit-scrollbar-thumb{
+	&::-webkit-scrollbar-thumb {
 		border: 2px solid $bg;
 	}
 }
 
-h2{
+h2 {
 	color: $fg;
 }
-img:not([src*="smilies"]):not([class^="latex"]):not([alt="Feed"]):hover{
+img:not([src*="smilies"]):not([class^="latex"]):not([alt="Feed"]):hover {
 	background: url("data:image/png;UTF-8;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gMJCy8HXmWgigAAAC5JREFUOMtj/P//fwMDccCIGEVMDFQGowaOGjgYDGQhNgcwMDCcGw3DUQNHrIEA0WgE2XBobBkAAAAASUVORK5CYII=") repeat;
 }
-a:link, a:visited{
+a:link, a:visited {
 	color: $link;
 }
-a:hover{
+a:hover {
 	color: $hover;
 	text-decoration: underline;
 }
-input{
+input {
 	-webkit-tap-highlight-color: $t; // stop WebKit from applying distracting tap outline
 }
 // #side
-[type="text"], textarea{
+[type="text"], textarea {
 	/* $textarea defined in _variables.scss */
 	background: $textarea;
 	color: rgb(54, 54, 54);
-	&:hover{
+	&:hover {
 		background: darken($textarea, 1%);
 	}
-	&:focus{
+	&:focus {
 		background: darken($textarea, 2%);
 	}
-	#main &{
+	#main & {
 		/* $main_textarea defined in _variables.scss */
 		background: $main_textarea;
 		color: $fg;
 		font: 13px/1.9em 'Open Sans', sans-serif;
 		padding: 5px;
 		box-shadow: 0 0 1px rgba(0, 0, 0, .1);
-		&:hover{
+		&:hover {
 			background: darken($main_textarea, 1%);
 		}
-		&:focus{
+		&:focus {
 			background: darken($main_textarea, 2%);
 		}
 	}
@@ -151,7 +171,7 @@ input{
 
 /*-- Nav-bar --*/
 
-#navigation_box{
+#navigation_box {
 	@extend %noselect;
 	position: absolute;
 	@include move(116px, 100px);
@@ -161,30 +181,30 @@ input{
 	padding: 2px 10px 22px;
 	border-bottom: 2px solid rgb(248, 248, 249);
 	overflow-x: auto;
-	a{
+	a {
 		color: $link;
 		font-size: 15px;
 		text-transform: uppercase;
 		margin-right: 8px;
-		&:hover{
+		&:hover {
 			color: $hover;
 		}
 	}
 }
-#right_navigation_box{
+#right_navigation_box {
 	float: left;
 }
-#left_navigation_box a:last-child{
+#left_navigation_box a:last-child {
 	padding-right: 10px;
 }
 
 /*-- Header --*/
 
-#header{
+#header {
 	@include dimensions(100%, 90px);
 	background: rgb(245, 245, 245);
 	overflow: hidden;
-	h1{
+	h1 {
 		position: relative;
 		left: 100px;
 		width: calc(100% - 100px); // allow scrolling
@@ -192,17 +212,17 @@ input{
 		text-align: left !important;
 		padding-bottom: 24px;
 		overflow: hidden;
-		&:after{
+		&:after {
 			@include content("Welcome to my blog!", absolute, 55px, 0);
 			color: rgb(175, 175, 175);
 			font: 500 11px/1.5em $helvetica;
 		}
-		&::-webkit-scrollbar, &::-webkit-scrollbar-thumb{
+		&::-webkit-scrollbar, &::-webkit-scrollbar-thumb {
 			height: 6px;
 			box-shadow: none;
 		}
 	}
-	&:hover h1{
+	&:hover h1 {
 		@include WebKitCalc(padding-bottom, 10px, 16px); // WebKit scrollbar
 		overflow-x: auto;
 	}
@@ -210,34 +230,34 @@ input{
 
 /*-- Main content --*/
 
-#wrapper{
+#wrapper {
 	width: 100%;
 	background: none;
 	margin-left: 0;
 }
-#main{
+#main {
 	position: relative;
 	@include move(70px !important, 100px);
 	width: 80%;
-	& > *{
+	& > * {
 		background: $bg;
 	}
-	& > h1{
+	& > h1 {
 		margin-bottom: 36px;
 	}
 }
 
 /*-- Post new entry --*/
 
-#post-new-entry{
-	&:link, &:visited{
+#post-new-entry {
+	&:link, &:visited {
 		color: $fg !important;
 		font-size: 12px;
 	}
-	&:hover{
+	&:hover {
 		text-decoration: none;
 	}
-	&:before{
+	&:before {
 		content: '+';
 		padding: 3px 7px;
 		border: 1px solid; // default colour is black
@@ -245,18 +265,18 @@ input{
 		margin-right: 5px;
 	}
 }
-#post-new-entry-p{
+#post-new-entry-p {
 	margin: 0 auto 1.6em;
 }
 
 /*--Entries & Comments --*/
 
-div.entry{
+div.entry {
 	padding-bottom: 40px;
 	@extend %borderless;
 }
-.entry{
-	h1 a:link, h1 a:visited, h2 a:link, h2 a:visited{
+.entry {
+	h1 a:link, h1 a:visited, h2 a:link, h2 a:visited {
 		color: $fg;
 		line-height: 1.5em;
 
@@ -265,27 +285,27 @@ div.entry{
 		-o-transition: color .4s ease-in-out, -o-transition .24s ease;
 		transition: color .4s ease-in-out, transform .24s ease;
 	}
-	h1 a:hover, h2 a:hover{
+	h1 a:hover, h2 a:hover {
 		text-decoration: none;
 	}
-	h1 a:hover{
+	h1 a:hover {
 		color: $hover;
 	}
-	strong{
-		& > a:link, & > a:visited{
+	strong {
+		& > a:link, & > a:visited {
 			display: inline-block;
 			color: rgb(60, 60, 60);
 			font: normal 1em/1 $mss;
 			@include pre((transform: skew(-10deg)));
 		}
-		& > a:hover{
+		& > a:hover {
 			color: $fg;
 			@include pre((transform: skew(0deg)));
 		}
 	}
-	& > h2{
+	& > h2 {
 		margin-top: .3em;
-		& > a:before{
+		& > a:before {
 			@include content("> ",relative, "1px; top: -moz-calc(-1px)", 5px); // Little Bobby Tables
 			line-height: 1em;
 			padding-right: 5px;
@@ -293,47 +313,47 @@ div.entry{
 		}
 	}
 }
-div.entrywrap{
+div.entrywrap {
 	@extend %borderless;
 	background: $t;
 }
-.message{
+.message {
 	font: 13px/2em 'Open Sans', $mss;
-	img{
+	img {
 		max-width: 100%;
 	}
-	& ~ * a:link, & ~ * a:visited{
+	& ~ * a:link, & ~ * a:visited {
 		text-decoration: none;
 	}
 }
-.efooter{
+.efooter {
 	position: relative;
 	top: 5px;
 }
 
-div.comment{
+div.comment {
 	@extend %borderless;
 	margin-top: 0;
 	margin-bottom: 20px;
 }
-.row1, .row2{
+.row1, .row2 {
 	background: $t;
 }
-.author{
+.author {
 	font-size: 11px;
-	& > a:before{
+	& > a:before {
 		@include content('>', relative, -1px, 0px);
 		color: $fg;
 		font-weight: bold !important;
 		font-size: inherit;
 		margin-right: 4px;
 	}
-	& > strong > a:link, & > strong > a:visited{
+	& > strong > a:link, & > strong > a:visited {
 		color: $fg;
 		font-style: italic !important;
 		font-weight: normal !important;
 	}
-	& > strong > a:hover{
+	& > strong > a:hover {
 		font-style: normal !important;
 	}
 }
@@ -341,94 +361,94 @@ div.comment{
 /*-- Icons --*/
 
 // $icons defined in _variables.scss
-.modactions{
-	:before, :after{
+.modactions {
+	:before, :after {
 		@extend %pseudo;
 	}
-	%standard{
+	%standard {
 		/* %standard */
 		@extend %noselect;
 		color: $t;
 		font-size: 1px;
 		position: relative;
 	}
-	%pseudo-standard{
+	%pseudo-standard {
 		/* %pseudo-standard */
 		background: $icons;
 		@include pre((transition: .2s ease));
 	}
-	%pseudo-cover{
+	%pseudo-cover {
 		/* %pseudo-cover */
 		@include dimensions(20px);
 		background: $t;
 	}
-	a[title="Edit post"]{ 
+	a[title="Edit post"] {
 		@extend %standard;
-		&:after, :before, :after{
+		&:after, :before, :after {
 			@extend %pseudo-standard;
 		}
-		&:after{
+		&:after {
 			@include move(-14px);
 			@extend %pseudo-cover;
 		}
-		:before{
+		:before {
 			@extend %rte45;
 			@include move(-12px, -5px);
 			@include dimensions(5px, 14px);
 			border-bottom: 1px solid $bg;
 			z-index: 1;
 		}
-		:after{
+		:after {
 			@include move(-1px, -10px);
 			@include dimensions(4px);
 			@include pre((transform: skew(-10deg, -10deg)));
 		}
-		&:hover{
-			:before, :after{
+		&:hover {
+			:before, :after {
 				background: lighten($link, 10%);
 			}
 		}
 	}
-	a[title="Delete post"]{
+	a[title="Delete post"] {
 		@extend %standard;
-		&:after, :before, :after{
+		&:after, :before, :after {
 			@extend %pseudo-standard;
 		}
-		&:after{
+		&:after {
 			@include move(-14px, -7px);
 			@extend %pseudo-cover;
 		}
-		:before{
+		:before {
 			@extend %rte45;
 			@include dimensions(4px, 13px);
 			@include move(-10px, 0.5px);
 		}
-		:after{
+		:after {
 			@include dimensions(11px);
 			@include move(-11px, -5px);
 			background: $t;
 			border: 2px solid $icons;
 			border-radius: 50px;
 		}
-		&:hover{
-			:before{
+		&:hover {
+			:before {
 				background: rgb(200, 0, 0);
 			}
-			:after{
+			:after {
 				border-color: rgb(200, 0, 0);
 			}
 		}
 	}
-	a[title="Report this post"]{
+	a[title="Report this post"] {
 		@extend %standard;
-		&:after, :before, :after{
+		&:after, :before, :after {
 			@extend %pseudo-standard;
 		}
-		&:after{
+		&:after {
 			@include move(-14px, -1px);
 			@extend %pseudo-cover;
 		}
-		:before{
+		:before {
 			content: "!";
 			@include move(-11px, 7px);
 			background: $t;
@@ -437,45 +457,45 @@ div.comment{
 			font-weight: bold;
 			z-index: 1;
 		}
-		:after{
+		:after {
 			@include move(-15px, 0);
 			@include dimensions(0);
 			background: $t;
-			border:{
+			border: {
 				width: 0 9px 18px;
 				color: $icons $t;
 				style: solid;
 			}
 		}
-		&:hover{
-			:after{
+		&:hover {
+			:after {
 				border-color: goldenrod $t;
 			}
 		}
 	}
 }
 /* While strictly not icons, tags are still included because of their passing resemblance */
-.post-tags{
+.post-tags {
 	color: $t;
 	font-size: 0.01px;
 	margin: 15px 0 10px !important;
-	a{
+	a {
 		color: rgb(119, 119, 119);
 		font-size: 8pt;
 		background: rgb(230, 230, 230);
 		padding: 2px 5px 2px 0;
 		margin-right: 5px;
-		&:before{
+		&:before {
 			content: "#";
 			background: rgb(225, 225, 225); // \\?: need to remove?
 			padding: 2px 3px;
 			margin-right: 3px;
 		}
-		&:hover{
+		&:hover {
 			color: rgb(102, 102, 102);
 			background: rgb(225, 225, 225);
 
-			&:before{
+			&:before {
 				background: rgb(205, 205, 205);
 			}
 		}
@@ -484,10 +504,10 @@ div.comment{
 
 /*-- Hidden Text --*/
 
-.hidden-label{
+.hidden-label {
 	color: lighten($link, 18%);
 	text-decoration: none;
-	&:hover{
+	&:hover {
 		color: lighten($hover, 9%);
 		text-decoration: underline;
 	}
@@ -495,33 +515,33 @@ div.comment{
 
 /*-- Quotes & Code --*/
 
-div.quotetitle, div.quotecontent{
+div.quotetitle, div.quotecontent {
 	@extend %borderless;
 	background: rgb(243, 243, 240);
 	padding: 10px;
 	border-left: 5px solid $sidebg;
 }
-.codetitle{
+.codetitle {
 	@extend %none;
 }
-.codecontent{
+.codecontent {
 	max-height: 27em !important;
 	font: 12px/2em Consolas, monospace, sans-serif;
 	padding: 10px;
 	border: 1px solid rgb(219, 219, 206);
 	overflow: auto;
 	white-space: pre;
-	a:hover{
+	a:hover {
 		text-decoration: none;
 	}
-	& > div > ol{
+	& > div > ol {
 		height: auto;
 		max-height: 24em;
 		padding: 10px 40px;
 		margin: -10px;
 		overflow: auto;
 	}
-	& > div:after{
+	& > div:after {
 		content: attr(class);
 		display: block;
 		background: rgb(235, 235, 235);
@@ -531,19 +551,19 @@ div.quotetitle, div.quotecontent{
 		padding: 6px 0 3px 10px;
 		margin: 10px -10px -10px;
 	}
-	&:hover > div:after{
+	&:hover > div:after {
 		background: rgb(225, 225, 225);
 	}
 
 	/* special code types */
-	& > .csharp:after { content: 'C#';}
-	& > .cpp:after { content: 'C++';}
-	& > .objc:after { content: 'Objective-C';}
+	& > .csharp:after  { content: 'C#';}
+	& > .cpp:after  { content: 'C++';}
+	& > .objc:after  { content: 'Objective-C';}
 }
 
 /*-- Sidebar --*/
 
-#side{
+#side {
 	position: fixed;
 	@include move(0, -340px);
 	height: 100%;
@@ -555,7 +575,7 @@ div.quotetitle, div.quotecontent{
 	box-shadow: 0 0 5px $sidebg;
 	z-index: 100;
 	@include pre((transition: .5s ease));
-	&:after{
+	&:after {
 		@include content('+', fixed, 0, 0);
 		display: block;
 		height: 100%;
@@ -565,51 +585,51 @@ div.quotetitle, div.quotecontent{
 		padding: 20px 12px 17px;
 		@include pre((transition-delay: .35s));
 	}
-	&:before{
+	&:before {
 		@include content('', fixed, 31px, 39px);
 		display: block;
-		border:{
+		border: {
 			width: 9px 0 9px 9px;
 			color: $t $sidebg;
 			style: solid;
 		}
 		pointer-events: none;
 	}
-	&:hover{
+	&:hover {
 		left: 0;
-		&:after{
+		&:after {
 			color: $t;
 			@include pre((transition-delay: 0s));
 		}
-		&:before{
+		&:before {
 			@extend %none;
 		}
 	}
 
-	a:link, a:visited{
+	a:link, a:visited {
 		color: rgb(216, 241, 250);
 		@include pre((transition: .2s ease-in-out));
 	}
-	a:hover{
+	a:hover {
 		color: rgb(207, 242, 255);
-		text:{
+		text: {
 			decoration: none;
 			shadow: 0 0 3px $sidefg;
 		}
 		@include hardwareAccel(); // GPU-accelerate text shadows
 	}
-	.quotetitle, .quotecontent, .codecontent{
+	.quotetitle, .quotecontent, .codecontent {
 		background: $sidefg;
 		color: rgb(50, 50, 50);
 		width: 300px;
 	}
-	.quotetitle, .quotecontent{
+	.quotetitle, .quotecontent {
 		border-left-color: rgb(255, 187, 25);
 	}
-	.codetitle, .codecontent{
+	.codetitle, .codecontent {
 		text-align: left !important;
 	}
-	img.latex, img.latexcenter{
+	img.latex, img.latexcenter {
 		background: rgba(255, 255, 255, .5) !important;
 		padding: 1px .4999px; // so low screen resolutions won't have an ugly 1px of padding
 	}
@@ -617,18 +637,18 @@ div.quotetitle, div.quotecontent{
 
 /*-- Widgets --*/
 
-.widget, .block{
+.widget, .block {
 	padding: 1.5em !important;
 	margin: 0 !important;
 }
-.widget-title{
+.widget-title {
 	@extend %noselect;
 	color: $sidefg;
 	border-bottom: 2px solid rgb(155, 202, 218);
 	overflow: hidden;
 }
-.widget{
-	& > .widget-content{
+.widget {
+	& > .widget-content {
 		position: fixed;
 		left: 280px;
 		width: 340px;
@@ -644,23 +664,23 @@ div.quotetitle, div.quotecontent{
 		border-radius: 1px;
 		@include pre((transition: opacity .3s ease-in-out));
 	}
-	&:hover{
-		& > .widget-header > .widget-title{
+	&:hover {
+		& > .widget-header > .widget-title {
 			color: darken($sidebg, 11%);
 			border-bottom: none;
 		}
-		& > .widget-header{
+		& > .widget-header {
 			background: rgb(155, 202, 218);
 			padding: 5px;
 			cursor: default;
 			border-radius: 10px;
 		}
-		& > .widget-content{
+		& > .widget-content {
 			display: block;
 		}
 	}
-	@for $i from 2 through 9{
-		&:nth-of-type(#{$i}) > .widget-content{
+	@for $i from 2 through 9 {
+		&:nth-of-type(#{$i}) > .widget-content {
 			top: 65px * $i - 55px;
 		}
 	}
@@ -668,11 +688,11 @@ div.quotetitle, div.quotecontent{
 
 /*-- Description --*/
 
-#user-menu-widget{
-	a:link, a:visited, a:hover{
+#user-menu-widget {
+	a:link, a:visited, a:hover {
 		color: $sidefg !important;
 	}
-	&:before{
+	&:before {
 		content: 'Description';
 		color: $sidefg;
 		font-weight: bold !important;
@@ -682,17 +702,17 @@ div.quotetitle, div.quotecontent{
 		border-bottom: 2px solid rgb(155, 202, 218);
 		cursor: default;
 	}
-	& > div{
+	& > div {
 		@extend %none;
 	}
-	&:hover{
-		&:before{
+	&:hover {
+		&:before {
 			background: rgb(155, 202, 218);
 			color: darken($sidebg, 11%);
 			padding: 10px 139px 10px 5px;
 			border-radius: 10px;
 		}
-		& > div{
+		& > div {
 			position: fixed;
 			@include move(9px, 280px);
 			width: 340px;
@@ -709,72 +729,72 @@ div.quotetitle, div.quotecontent{
 
 /*-- Archives --*/
 
-#archive-widget > .widget-content{
+#archive-widget > .widget-content {
 	@extend %block-widget;
-	& > div{
+	& > div {
 		display: block !important;
 		max-height: 0px;
 		margin: 20px 0 -10px;
 		overflow: hidden;
 		@include pre((transition: max-height .5s ease-in-out));
 	}
-	& > div[style="display: block;"], & > div:not([style]){
+	& > div[style="display: block;"], & > div:not([style]) {
 		max-height: 250em;
 	}
-	& > span{
+	& > span {
 		position: absolute;
 	}
 }
-.archive-row{
+.archive-row {
 	border-bottom: 1px dashed $sidefg;
 	padding: 5px;
 	width: 90%;
-	&:last-child{
+	&:last-child {
 		border-bottom: none;
 	}
 }
 
 /*-- SHOUT! SHOUT! SHOUT! --*/
 
-#shouts-widget > .widget-content{
+#shouts-widget > .widget-content {
 	@extend %block-widget;
 }
-li.row1, li.row2{
+li.row1, li.row2 {
 	width: 300px;
 	padding-top: 2px;
 	overflow-x: auto;
 }
-#shout_post{
-	& > .fields1{
+#shout_post {
+	& > .fields1 {
 		padding-top: 10px;
 	}
-	& > fieldset{
-		&[style="text-align:center"]{
+	& > fieldset {
+		&[style="text-align:center"] {
 			@extend .fields1;
 			padding-bottom: 20px;
 		}
-		& > ul{
+		& > ul {
 			@extend .fields1;
 			margin-top: -12px;
 		}
 	}
-	#message{
+	#message {
 		max-width: 284px;
 		margin-top: 0 !important;
 	}
-	.quotecontent, .quotetitle, .codecontent{
+	.quotecontent, .quotetitle, .codecontent {
 		width: auto;
 	}
 }
-.shout_footer::before{
+.shout_footer::before {
 	content: '> ';
 	font-weight: bold;
 	margin-right: 5px;
 }
-input[name="shouts_ids[]"]{
+input[name="shouts_ids[]"] {
 	margin-left: -2px;
 }
-#explain:not(:empty){
+#explain:not(:empty) {
 	width: 290px;
 	background: rgb(200, 200, 200);
 	color: rgb(50, 50, 50);
@@ -785,9 +805,9 @@ input[name="shouts_ids[]"]{
 
 /*-- Search --*/
 
-.widget:not([id]){
+.widget:not([id]) {
 	@extend %inline-widget;
-	#blog_keywords{
+	#blog_keywords {
 		padding: 5px;
 		margin-left: -6px;
 		margin-bottom: 5px;
@@ -802,18 +822,18 @@ input[name="shouts_ids[]"]{
  *       make less verbose
  */
 
-/*#shout_post > * > div[style]{
-	@at-root{
-		.total-posts{
+/*#shout_post > * > div[style] {
+	@at-root {
+		.total-posts {
 			@extend %noselect;
 			\/\* force alignment with main \*\/
 			margin-right: 1em;
 		}
-		&, .total-posts{
+		&, .total-posts {
 			color: $t;
 			font-size: 0.8em;
-			& a{
-				%pagination-common{
+			& a {
+				%pagination-common {
 					position: relative;
 					display: inline-block;
 					@include dimensions(1.5em);
@@ -823,8 +843,8 @@ input[name="shouts_ids[]"]{
 					background: #ddd;
 					border-radius: 99px;
 					@include pre((transition: 0.3s ease-in-out));
-					&:after{
-						%pagination-ghost{
+					&:after {
+						%pagination-ghost {
 							@include content("", absolute, -2px, -3px);
 							right: -3px;
 							display: block;
@@ -835,11 +855,11 @@ input[name="shouts_ids[]"]{
 						}
 					}
 				}
-				&:last-child{
-					&:after{
+				&:last-child {
+					&:after {
 						left: -100%;
 					}
-/*					&:before{
+/*					&:before {
 						content: ">";
 						position: absolute;
 						left: -100%;
@@ -850,33 +870,33 @@ input[name="shouts_ids[]"]{
 					}\*\/
 				}
 			}
-			&:hover a{
+			&:hover a {
 				background: $t;
 				color: $fg;
 			}
 		}
-		&, .page-number + span{
-			strong{
+		&, .page-number + span {
+			strong {
 				@extend %pagination-common;
 				background: #aaa;
 				color: #555;
-				&:after{
+				&:after {
 					@extend %pagination-ghost;
 				}
 			}
 		}
-		.total-posts:hover .page-number + span, &:hover{
-			strong{
+		.total-posts:hover .page-number + span, &:hover {
+			strong {
 				color: $fg;
 				border-radius: 0;
 				background: #eee;
-				&:after{
+				&:after {
 					border-color: $fg;
 				}
 			}
 		}
-		.total-posts:hover, &:hover{
-			a:after{
+		.total-posts:hover, &:hover {
+			a:after {
 				border-color: grey;
 			}
 		}
@@ -887,13 +907,13 @@ input[name="shouts_ids[]"]{
 // TODO: wait for PythonNut's pagination module
 //       then adapt for own needs
 
-%pagination{
+%pagination {
 /* %pagination */
-	&{
+	& {
 		color: rgb(192, 192, 192);
 		float: left;
 		margin-left: -7px;
-		& > a, & > strong{
+		& > a, & > strong {
 			display: inline-block;
 			max-width: 11px;
 			background: rgb(225, 225, 226);
@@ -905,27 +925,27 @@ input[name="shouts_ids[]"]{
 			margin: 0 5px;
 			@include pre((box-sizing: border-box, transition: .3s ease-in-out));
 		}
-		& > strong:first-of-type{
+		& > strong:first-of-type {
 			background: rgb(204, 204, 205);
 		}
-		& > .page-sep{
+		& > .page-sep {
 			@extend %none;
 		}
 	}
 }
-%pagination-hover{
+%pagination-hover {
 	/* %pagination-hover */
-	&{
-		& > a, & > strong{
+	& {
+		& > a, & > strong {
 			max-width: none;
 			color: lighten($fg, 50%);
 			margin: 0 6px;
-			text:{
+			text: {
 				decoration: none;
 				@include WebKitCalc(indent, -.5px, -1px); // dammit WebKit
 			}
 			@include pre((transform: scale(1.4)));
-			&:hover{
+			&:hover {
 				@include WebKitCalc(text-indent, -1.5px, -2px);
 				@include pre((transform: scale(1.7)));
 			}
@@ -933,36 +953,36 @@ input[name="shouts_ids[]"]{
 	}
 }
 
-.total-posts{
+.total-posts {
 	position: relative;
 	@include move(-40px, 20px);
 	color: $t;
 	background-color: $t;
 	padding-bottom: 10px;
 	margin-top: 15px;
-	& > span:not([class]){
+	& > span:not([class]) {
 		@extend %pagination;
 	}
-	&:hover > span:not([class]){
+	&:hover > span:not([class]) {
 		@extend %pagination-hover;
-		& > a:hover, & > strong:hover{
+		& > a:hover, & > strong:hover {
 			padding-left: 5px;
 		}
 	}
 }
-#shout_post > fieldset > div[style="text-align:center;"]{
+#shout_post > fieldset > div[style="text-align:center;"] {
 	@extend %pagination;
-	& > a, & > strong{
+	& > a, & > strong {
 		width: 16px;
 		text-indent: 0px;
 		padding: 0 6.5px;
 	}
-	&:hover{
+	&:hover {
 		@extend %pagination-hover;
-		& > a, & > strong{
+		& > a, & > strong {
 			@include pre((transform: scale(1.2)));
 			text-indent: -3px;
-			&:hover{
+			&:hover {
 				@include pre((transform: scale(1.5)));
 				@include WebKitCalc(text-indent, -2.5px, -3px);
 				padding: 0 6.5px;
@@ -974,57 +994,57 @@ input[name="shouts_ids[]"]{
 /*--Sticky footer conquered --*/
 
 // html background already defined
-#main > div:not(.total-posts):last-of-type, #postform{
+#main > div:not(.total-posts):last-of-type, #postform {
 	margin-bottom: 35px;
 }
 
 /*-- Post entry/comment form --*/
 // needs to be sexier
 
-#smiley-box, #smiley-box a, #main > form > .fields1{
+#smiley-box, #smiley-box a, #main > form > .fields1 {
 	color: $t;
 }
-#smiley-box{
+#smiley-box {
 	// needs spicing up
 	margin-top: 10px;
 	line-height: 1.4em;
-	strong{
+	strong {
 		color: $fg;
 	}
-	a:nth-last-of-type(2){
+	a:nth-last-of-type(2) {
 		position: relative;
 		top: -5px;
 		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH3QkWCzk3oHoINwAAAYxJREFUOMulkzGS02AMhb/nZJihitmhtkI8qfERwgnwEXKELekIFUNFjmC6dLjcDnODzQEyu6KiYu1+d0SRBByTHWZAnZ6kX9J7+sXAzGw6gpKgPAmI+gFqd7/tw6O+k5utEvSZ4CmilthINIhWwTKR3l+kE911XTNsTJ5ZlWfW5mYLHrHcbJFn1uaZVcPAKs+snZsV/MXmZsWh0QpAZjYdoxuIVzv3Zu8z3bk3Q26O+H5KfbknXiR7wmJ7LBgFFUFtZukJWT18594QsR1BmRCUIarfZFMgTZ7A9FSEUzxERVCOBSlwfUzcffP03O5DXHAdUCbDxJnZ5WMEzswuh6slAW3AL/YVrGZmy3MHJvSR/cQcaxJErWDZm22tYN2X1MzScVBHxNfjJSpYIuo/ZASYZVZLek3Ep8MbJXB7Lxbu3vZlHHVd116kExGsn6fp1Y+u+37XdZtn6cQlQLQhNg/ijbu3c7MigivEhxv3+r9PWcOTBr0lYhui0kHegGK/s15CvNu5r84+8C/f+Scn37qt/TNLJgAAAABJRU5ErkJggg==') no-repeat 0px 0px/18px 18px $t !important;
 		font-size: 18px;
 	}
 }	
-.btnbbcode{
+.btnbbcode {
 	background: $t;
 	cursor: pointer;
 }
-[value=" i "], [value=" u "]{
+[value=" i "], [value=" u "] {
 	text-transform: uppercase;
 }
-.genmed.nowrap{
+.genmed.nowrap {
 	float: right;
-	&:before{
+	&:before {
 		content: 'Font size:';
 		color: $fg;
 		margin-right: -50px;
 	}
 }
-.gensmall{
+.gensmall {
 	height: 18px;
 	background: $bg;
 }
-#tabs a{
+#tabs a {
 	color: rgb(42, 42, 42);
-	&:hover{
+	&:hover {
 		color: rgb(70, 70, 70);
 	}
 }
-#main{
-	#message{
+#main {
+	#message {
 		margin-top: -4.9em;
 		resize: vertical;
 	}
@@ -1033,27 +1053,27 @@ input[name="shouts_ids[]"]{
 /*-- Icons for tabs --*/
 
 // $icons-tabz defined in _variables.scss
-#tabs ul{
-	li{
+#tabs ul {
+	li {
 		position: relative;
 		list-style-type: none;
 		padding-left: 1em;
 		margin-top: 1em;
 	}
-	:before, :after{
+	:before, :after {
 		@extend %pseudo;
 	}
-	%pseudo-standard-tabz{
+	%pseudo-standard-tabz {
 		/* %pseudo-standard-tabz */
 		@include move(0, -1.5em);
 		background: $icons-tabz;
 		pointer-events: none;
 		-moz-appearance: none; // for reasons that will make you go "wtf?"
 	}
-	%pseudo-standard-border{
+	%pseudo-standard-border {
 		/* %pseudo-standard-border */
 		background: $bg;
-		border:{
+		border: {
 			style: solid;
 			color: $icons-tabz;
 		}
@@ -1066,17 +1086,17 @@ input[name="shouts_ids[]"]{
 	// which has a duplicate li                                                            //
 
 	/* options are :first-child */
-	li:first-child{
-		&:before, &:after{
+	li:first-child {
+		&:before, &:after {
 			@extend %pseudo-standard-tabz;
 			@extend %rte45;
 		}
-		&:before{
+		&:before {
 			left: -16px;
 			@include dimensions(.4em, 1.3em);
 			z-index: 1;
 		}
-		&:after{
+		&:after {
 			@extend %pseudo-standard-border;
 			@include move(-.2em, -1.3em);
 			@include dimensions(.3em, .9em);
@@ -1085,26 +1105,26 @@ input[name="shouts_ids[]"]{
 		}
 	}
 	/* permissions are :nth-child(2), exist only on post entry */
-	li:nth-child(2):not(:nth-last-child(2)){ // this is to make sure we're not affecting anything on the comment form
-		&:before, &:after, a:before, a:after{
+	li:nth-child(2):not(:nth-last-child(2)) { // this is to make sure we're not affecting anything on the comment form
+		&:before, &:after, a:before, a:after {
 			@extend %pseudo-standard-tabz;
 		}
-		&:before{
+		&:before {
 			left: -2.1em;
 			border-radius: 2em;
 			@include dimensions(1em);
 		}
-		&:after{
+		&:after {
 			@include move(.3em, -1.2em);
 			@include dimensions(.8em, .3em);
 		}
-		a:before{
+		a:before {
 			@extend %pseudo-standard-border;
 			@include move(.4em, -1em);
 			@include dimensions(.1em, .5em);
 			border-width: 0 2px 0;
 		}
-		a:after{
+		a:after {
 			@include move(.4em, -1.87em);
 			@include dimensions(.2em);
 			background: $bg;
@@ -1113,20 +1133,20 @@ input[name="shouts_ids[]"]{
 	}
 	/* subscriptions are :nth-child(3) :nth-child(2) on comments */
 	li:nth-child(3):not(:last-child),
-	li:nth-child(2):nth-last-child(2){ // again, same deal, except subscriptions is in commenting form so it must also be included
-		&:before, &:after{
+	li:nth-child(2):nth-last-child(2) { // again, same deal, except subscriptions is in commenting form so it must also be included
+		&:before, &:after {
 			@extend %pseudo-standard-tabz;
 		}
-		&:before{
+		&:before {
 			@include move(.75em, -1.55em);
 			@include dimensions(.45em);
 			border-radius: .6em;
 		}
-		&:after{
+		&:after {
 			left: -1.6em;
 			@include dimensions(.8em);
 			background: $t;
-			border:{
+			border: {
 				width: .5em .5em 0 0;
 				style: double;
 				color: $icons-tabz $icons-tabz $t $t;
@@ -1136,33 +1156,33 @@ input[name="shouts_ids[]"]{
 	}
 	/* attachments are :nth-child(4), :nth-child(3) (or :last-child if you prefer) on comments */
 	li:nth-child(4),
-	li:nth-child(3):last-child{
-		&:before, &:after{
+	li:nth-child(3):last-child {
+		&:before, &:after {
 			@extend %pseudo-standard-tabz;
 		}
-		&:before{
+		&:before {
 			@extend %pseudo-standard-border;
 			@include move(-.4em, -1.8em);
 			border-width: 0 .8em .9em;
 			border-color: $icons-tabz $t;
 		}
-		&:after{
+		&:after {
 			@include move(.2em, -1.25em);
 			@include dimensions(.5em, 1em);
 		}
 	}
 	/* tags are :last-child, exist only on post entry */
-	li:last-child:not(:nth-child(3)){
-		&:before, &:after{
+	li:last-child:not(:nth-child(3)) {
+		&:before, &:after {
 			@extend %pseudo-standard-tabz;
 		}
-		&:before{
+		&:before {
 			@extend %rte45;
 			@include move(-.2em, -1.6em);
 			@include dimensions(1em, 1.5em);
 			border-radius: 1em 1em 0 0;
 		}
-		&:after{
+		&:after {
 			@include move(.2em, -1em);
 			@include dimensions(.3em);
 			background: $bg;
@@ -1175,60 +1195,60 @@ input[name="shouts_ids[]"]{
 
 /*-- Buttons --*/
 
-[type="button"]:not(.btnbbcode), [type="submit"], [type="reset"]{
+[type="button"]:not(.btnbbcode), [type="submit"], [type="reset"] {
 	@include linear-gradient((0: rgba(228, 228, 228, .97), 100: rgba(221, 221, 221, .97))); // direction and cover unit predefined in mixin
 	padding: 5px !important;
 	box-shadow: 0 0 1px rgba(0, 0, 0, .3) inset;
 	cursor: pointer;
-	&:hover{
+	&:hover {
 		@include linear-gradient((0: rgba(228, 228, 228, .86), 100: rgba(221, 221, 221, .86)));
 	}
-	&:active{
+	&:active {
 		@include radial-gradient((0: rgba(213, 213, 213, .8), 60: rgba(201, 201, 201, .8), 100: rgba(190, 190, 190, .8)));
 	}
 }
 
 /*-- Checkboxes and radio buttons --*/
 
-%checkbefore{
+%checkbefore {
 	/* %checkbefore */
 	content: '\2713';
 	position: relative;
 	background: rgb(206, 206, 206) !important;
 	color: $t;
 }
-%checkcheckedbefore{
+%checkcheckedbefore {
 	/* %checkcheckedbefore */
 	color: rgb(50, 50, 50);
 }
 
-#main [type="checkbox"], #main [type="radio"]{
-	&:before{
+#main [type="checkbox"], #main [type="radio"] {
+	&:before {
 		@extend %checkbefore;
 		@include move(-3px);
 	}
-	&:checked:before{
+	&:checked:before {
 		@extend %checkcheckedbefore;
 	}
 }
-#main [type="checkbox"]::before{
+#main [type="checkbox"]::before {
 	padding: 0 3px;
 }
-#main [type="radio"]::before{
+#main [type="radio"]::before {
 	content: '\25CF';
 	padding: 0 5px 2px;
 	border-radius: 16px;
 }
-#side [type="checkbox"]{
-	& + *:before{
+#side [type="checkbox"] {
+	& + *:before {
 		@extend %checkbefore;
 		@include move(-2px, -20px);
 		padding: 1px 4px;
 		margin-right: -20px;
 	}
-	&:checked{
+	&:checked {
 		outline: none; // prevent distracting outline
-		+ *:before{
+		+ *:before {
 			@extend %checkcheckedbefore;
 		}
 	}
@@ -1236,18 +1256,18 @@ input[name="shouts_ids[]"]{
 
 /*-- Errors --*/
 
-#blog-errors{
+#blog-errors {
 	position: absolute;
 	@include dimensions(100%, 4.3em);
 	background: rgb(197, 0, 0);
 	font: normal 1.6em/2em 'Open Sans', sans-serif;
 	padding: 10px;
 	margin: 0;
-	& + #wrapper #header h1{
+	& + #wrapper #header h1 {
 		z-index: -2;
 	}
 }
-.error{
+.error {
 	background: rgb(207, 0, 0);
 	color: black;
 	font: normal 1.4em/2.5em 'Open Sans', sans-serif;
@@ -1256,19 +1276,19 @@ input[name="shouts_ids[]"]{
 
 /*-- Misc. --*/
 
-dd{
+dd {
 	font-style: italic;
 	margin-left: 0;
 }
-hr{
+hr {
 	@extend %borderless;
 	height: 1px;
 	@include linear-gradient(right, (0: $bg, 50: rgb(187, 187, 187), 100: $bg));
 }
-#about-owner-widget > .widget-content, #stats-widget > .widget-content{
+#about-owner-widget > .widget-content, #stats-widget > .widget-content {
 	padding-bottom: 15px;
 }
-#feed-widget{
+#feed-widget {
 	@extend %inline-widget;
 }
 
@@ -1276,15 +1296,15 @@ hr{
 
 /* Sets default viewport size for mobile browsers */
 
-@-moz-viewport{width: device-width;}@-ms-viewport{width: device-width;}@-o-viewport{width: device-width;}@-webkit-viewport{width: device-width;}@viewport{width: device-width;}
+@-moz-viewport {width: device-width;}@-ms-viewport {width: device-width;}@-o-viewport {width: device-width;}@-webkit-viewport {width: device-width;}@viewport {width: device-width;}
 
 /* The real stuff */
 
-@media only screen and (max-width: 800px), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (min-resolution: 132dpi), only screen and (min-resolution: 1.5dppx){
+@media only screen and (max-width: 800px), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (min-resolution: 132dpi), only screen and (min-resolution: 1.5dppx) {
 
 	//-- Define --//
 
-	@mixin moveright($a, $b){
+	@mixin moveright($a, $b) {
 		top: #{$a};
 		right: #{$b};
 	}
@@ -1292,34 +1312,34 @@ hr{
 
 	/*-- General --*/
 
-	html, body, #main > *{
+	html, body, #main > * {
 		background: rgb(254, 254, 255);
 	}
-	body{
+	body {
 		overflow-x: auto !important;
 	}
-	#wrapper{
+	#wrapper {
 		position: relative;
 		top: 40px;
 	}
-	#main{
+	#main {
 		@include move(25px !important, 25px);
 		width: 98%;
 		overflow: hidden !important;
 	}
-	#side{
+	#side {
 		opacity: 0;
 		visibility: hidden;
 		-webkit-transition: 0s linear;
 		transition: 0s linear;
-		&:before, &:after{
+		&:before, &:after {
 			display: none;
 		}
 	}
 
 	/*-- Nav-bar --*/
 
-	#navigation_box{
+	#navigation_box {
 		@include move(0);
 		@include dimensions(100%, auto);
 		background: $mediabg;
@@ -1327,21 +1347,21 @@ hr{
 		padding: 10px;
 		border: none;
 		z-index: 100000;
-		a:link, a:visited, a:hover{
+		a:link, a:visited, a:hover {
 			color: $sidefg;
 		}
 	}
-	#left_navigation_box{
-		a:nth-last-of-type(2):not([href*="apsjour.php"]){
+	#left_navigation_box {
+		a:nth-last-of-type(2):not([href*="apsjour.php"]) {
 			display: block;
 			margin-bottom: -15px !important;
 		}
-		a:last-of-type{
+		a:last-of-type {
 			display: none;
 		}
 	}
-	#right_navigation_box{
-		a{
+	#right_navigation_box {
+		a {
 			position: absolute;
 			@include moveright(0, 20px);
 			@include dimensions(35px);
@@ -1350,21 +1370,21 @@ hr{
 			font-size: .01px;
 			float: right;
 		}
-		a:before, a:after{
+		a:before, a:after {
 			content: '\00A0';
 			position: absolute;
 			@include pre((transform: rotate(45deg)));
 		}
-		a:before{
+		a:before {
 			@include moveright(8px, 4px);
 			@include dimensions(4px, 11px);
 			font-size: 8px;
-			border: 5px solid $sidefg{
+			border: 5px solid $sidefg {
 				width: 0 5px;
 				radius: 10px;
 			}
 		}
-		a:after{
+		a:after {
 			@include moveright(12px, 16px);
 			width: 5px;
 			font-size: 15px;
@@ -1374,16 +1394,16 @@ hr{
 
 	/*-- Misc. --*/
 
-	#header h1{
+	#header h1 {
 		left: 33px;
 		overflow-x: hidden;
 	}
-	[type="checkbox"]::before, [type="radio"]::before{
+	[type="checkbox"]::before, [type="radio"]::before {
 		left: -1px;
 	}
-	#blog-errors{
+	#blog-errors {
 		display: none;
-		& + #wrapper #header, & + #wrapper #header h1{
+		& + #wrapper #header, & + #wrapper #header h1 {
 			background: rgb(197, 0, 0);
 			z-index: 1;
 		}
@@ -1392,24 +1412,24 @@ hr{
 
 /*-- Shouts iff you rotate screen to landscape --*/
 
-@media only screen and (max-width: 800px) and (orientation: landscape), only screen and (-webkit-min-device-pixel-ratio: 1.5) and (orientation: landscape), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (min-resolution: 132dpi) and (orientation: landscape), only screen and (min-resolution: 1.5dppx) and (orientation: landscape){
-	#side{
+@media only screen and (max-width: 800px) and (orientation: landscape), only screen and (-webkit-min-device-pixel-ratio: 1.5) and (orientation: landscape), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (min-resolution: 132dpi) and (orientation: landscape), only screen and (min-resolution: 1.5dppx) and (orientation: landscape) {
+	#side {
 		opacity: 1;
 		visibility: visible;
 		-webkit-transition: left .5s cubic-bezier(.1, .8, .2, .9), opacity .5s ease;
 		transition: left .5s cubic-bezier(.1, .8, .2, .9), opacity .5s ease;
-		&, &:hover{
+		&, &:hover {
 			position: absolute;
 			left: 100%;
 			@include dimensions(0);
 			background: none;
 			box-shadow: none;
 		}
-		& > *:not(#shouts-widget){
+		& > *:not(#shouts-widget) {
 			display: none;
 		}
 	}
-	#shouts-widget > .widget-content{
+	#shouts-widget > .widget-content {
 		position: absolute;
 		@include move(-40px, 15px);
 		display: block;
@@ -1419,19 +1439,19 @@ hr{
 		box-shadow: none;
 		overflow: visible;
 	}
-	#shout_post{
+	#shout_post {
 		width: 343px;
 		background: rgb(39, 139, 194);
 		border-left: 40px solid $t;
 	}
 }
 
-@media all and (max-width: 319px){
-	body{
-		& > div{
+@media all and (max-width: 319px) {
+	body {
+		& > div {
 			display: none;
 		}
-		&:before{
+		&:before {
 			@include content("Error: Your screen is way too small.\A\A\A Do Gangnam style to exit.", absolute, 40%, 0);
 			width: 100%;
 			color: $fg;
@@ -1439,43 +1459,43 @@ hr{
 			white-space: pre;
 			overflow: hidden;
 		}
-		&:first-line{
+		&:first-line {
 			font-size: 25px;
 		}
 	}
 }
 
-@media print{
-	#navigation_box, #post-new-entry, #side, .modactions, .total-posts, addthis_button{
+@media print {
+	#navigation_box, #post-new-entry, #side, .modactions, .total-posts, addthis_button {
 		display: none;
 	}
-	body{
+	body {
 		background: white;
-		a:link, a:visited, a:hover, .hidden-label{
+		a:link, a:visited, a:hover, .hidden-label {
 			color: black !important;
 			text-decoration: none !important;
 		}
 	}
-	#header h1{
+	#header h1 {
 		@include move(10px, 0);
 		width: 100%;
 		text-align: center !important;
 		padding-bottom: 40px;
-		&:after{
+		&:after {
 			width: 100%;
 			text-align: center;
 		}
 	}
-	#main{
+	#main {
 		@include move(25px !important, 0);
 		width: 60%;
 		margin: 0 20%;
 	}
-	.message a:not([class^="latex"])::after{
+	.message a:not([class^="latex"])::after {
 		content: " (@\00A0" attr(href) ")";
 		font-size: 13px !important;
 	}
-	div.codecontent, div.codecontent > div > ol{
+	div.codecontent, div.codecontent > div > ol {
 		max-height: none !important;
 	}
 }

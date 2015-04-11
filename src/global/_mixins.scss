@@ -9,7 +9,7 @@
 
 // Autoprefixer
 // Forked from Libre's autoprefixer
-@mixin pre($property, $default: (webkit, moz, o)){
+@mixin pre($property, $default: (webkit, moz, o)) {
 	$list: (
 			user-select: (webkit, moz, ms),
 			transform  : (webkit, ms, o),
@@ -17,13 +17,13 @@
 			animation  : (webkit, o),
 			box-sizing : (moz)
 		);
-	@each $prop, $value in $property{
-		@each $pre in map-get($list, $prop) or $default{
+	@each $prop, $value in $property {
+		@each $pre in map-get($list, $prop) or $default {
 			// GPU on WebKit
-			@if $prop == "transform" and $pre == "webkit"{
+			@if $prop == "transform" and $pre == "webkit" {
 				/* add GPU acceleration on WebKit */
 				-#{$pre}-#{$prop}: #{$value} translateZ(0px);
-			} @else{
+			} @else {
 				-#{$pre}-#{$prop}: #{$value};
 			}
 		}
@@ -32,34 +32,42 @@
 }
 
 // Move selector
-@mixin move($a, $b: null){
+@mixin move($a, $b: null) {
 	top: #{$a};
-	@if $b == null{ left: #{$a};}
-	@else { left: #{$b};}
+	@if $b == null {
+		left: #{$a};
+	} @else {
+		left: #{$b};
+	}
 }
 
 // Dimensions of selector
-@mixin dimensions($a, $b: null){
+@mixin dimensions($a, $b: null) {
 	width: #{$a};
-	@if $b == null { height: #{$a};}
-	@else { height: #{$b};}
+	@if $b == null {
+		height: #{$a};
+	} @else {
+		height: #{$b};
+	}
 }
 
 // One-line content mixin for pseudo-elements
-@mixin content($content:"", $pos: null, $a: null, $b: null){
+@mixin content($content:"", $pos: null, $a: null, $b: null) {
 	content: $content;
-	@if $pos != null and $a != null{
+	@if $pos != null and $a != null {
 		position: $pos;
 		@include move($a, $b);
-	} @else { @warn "Use of the content property is preferred instead of the content mixin in this case.";} // self-reminder
+	} @else {
+		@warn "Use of the content property is preferred instead of the content mixin in this case."; // self-reminder
+	}
 }
 
 // linear-gradient mixin
 // Thanks to PythonNut for this mixin
 // http://www.artofproblemsolving.com/Forum/blog.php?u=81377&b=98748&r=151953#r151953
 // extra mods by me
-@mixin linear-gradient($dir, $stops: null, $options: null){
-	@if $stops == null{
+@mixin linear-gradient($dir, $stops: null, $options: null) {
+	@if $stops == null {
 		$stops: $dir;
 		$dir  : "bottom";
 	}
@@ -76,10 +84,13 @@
 
 	$parsed_stops: "";
 	$first: false;
-	@each $stop, $colour in $stops{
+	@each $stop, $colour in $stops {
 		$stop: $stop + if(unit($stop) == "", "%", unit($stop));
-		@if $first == true { $parsed_stops: $parsed_stops + ", ";}
-		@else              { $first: true;}
+		@if $first == true {
+			$parsed_stops: $parsed_stops + ", ";
+		} @else {
+			$first: true;
+		}
 		$parsed_stops: $parsed_stops + "#{$colour} #{$stop}";
 	}
 
@@ -92,8 +103,8 @@
 
 // radial-gradient mixin
 // based on above
-@mixin radial-gradient($type, $extent: null, $pos: null, $stops: null, $options: null){
-	@if $extent == null{ // only need to specify extent since that pretty much solves everything for the purposes of this css
+@mixin radial-gradient($type, $extent: null, $pos: null, $stops: null, $options: null) {
+	@if $extent == null { // only need to specify extent since that pretty much solves everything for the purposes of this css
 		$stops : $type;
 		$type  : "ellipse";
 		$extent: "farthest-corner";
@@ -110,10 +121,13 @@
 
 	$parsed_stops: "";
 	$first: false;
-	@each $stop, $colour in $stops{
+	@each $stop, $colour in $stops {
 		$stop: $stop + if(unit($stop) == "", "%", unit($stop));
-		@if $first == true { $parsed_stops: $parsed_stops + ", ";}
-		@else              { $first: true;}
+		@if $first == true {
+			$parsed_stops: $parsed_stops + ", ";
+		} @else {
+			$first: true;
+		}
 		$parsed_stops: $parsed_stops + "#{$colour} #{$stop}";
 	}
 
