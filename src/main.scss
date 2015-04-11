@@ -60,11 +60,11 @@
 
 //-- Reset --//
 
-fieldset, textarea, select, a, input, #wrapper, #header, #blog-errors {
+fieldset, textarea, select, a, input, #wrapper, #header {
 	@extend %borderless;
 	outline: none;
 }
-*:not(#content) > .clear, input[value="Search"], .widget:not([id]) a, .entry h2 img, .author img, .post-comment[href=""], .deleted, #smiley-box a[href="#"], #main > p:not([id]), [alt="+"], [alt="-"], .total-posts .page-sep, #post-new-entry-img {
+*:not(#content) > .clear, input[value="Search"], #search-widget a, .entry h2 img, .author img, .post-comment[href=""], .deleted, #main > p:not([id]), [alt="+"], [alt="-"], #post-new-entry-img {
 	@extend %none;
 }
 
@@ -105,8 +105,6 @@ html {
 	background-color: $sidebg;
 }
 body {
-	/* force sass to output @charset */
-	var-charset: "ö";
 	min-height: 400px;
 	background: $bg;
 	font: normal 8pt/1.2em $helvetica;
@@ -116,7 +114,7 @@ body {
 	-webkit-font-smoothing: antialiased; // nicer antialiasing for WebKit on OSX
 	-moz-osx-font-smoothing: grayscale;  // same for Firefox
 
-	text-rendering: OptimizeLegibility;  // optimize legibility of text
+	text-rendering: optimizeLegibility;  // optimize legibility of text
 
 	&::-webkit-scrollbar {
 		@include dimensions(13px);
@@ -129,7 +127,7 @@ body {
 h2 {
 	color: $fg;
 }
-img:not([src*="smilies"]):not([class^="latex"]):not([alt="Feed"]):hover {
+img:not([src*="smilies"]):not([class^="latex"]):hover {
 	background: url("data:image/png;UTF-8;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gMJCy8HXmWgigAAAC5JREFUOMtj/P//fwMDccCIGEVMDFQGowaOGjgYDGQhNgcwMDCcGw3DUQNHrIEA0WgE2XBobBkAAAAASUVORK5CYII=") repeat;
 }
 a:link, a:visited {
@@ -475,6 +473,7 @@ div.comment {
 	}
 }
 /* While strictly not icons, tags are still included because of their passing resemblance */
+// TODO: fix class to new AoPS tags
 .post-tags {
 	color: $t;
 	font-size: 0.01px;
@@ -503,6 +502,7 @@ div.comment {
 }
 
 /*-- Hidden Text --*/
+// TODO: fix class to new hidden labels
 
 .hidden-label {
 	color: lighten($link, 18%);
@@ -514,7 +514,7 @@ div.comment {
 }
 
 /*-- Quotes & Code --*/
-
+// TODO: fix classes
 div.quotetitle, div.quotecontent {
 	@extend %borderless;
 	background: rgb(243, 243, 240);
@@ -618,6 +618,7 @@ div.quotetitle, div.quotecontent {
 		}
 		@include hardwareAccel(); // GPU-accelerate text shadows
 	}
+	// TODO: fix classes
 	.quotetitle, .quotecontent, .codecontent {
 		background: $sidefg;
 		color: rgb(50, 50, 50);
@@ -636,6 +637,7 @@ div.quotetitle, div.quotecontent {
 }
 
 /*-- Widgets --*/
+// TODO: extend tags widget
 
 .widget, .block {
 	padding: 1.5em !important;
@@ -755,6 +757,7 @@ div.quotetitle, div.quotecontent {
 }
 
 /*-- SHOUT! SHOUT! SHOUT! --*/
+// TODO: fix classes & layout
 
 #shouts-widget > .widget-content {
 	@extend %block-widget;
@@ -805,189 +808,12 @@ input[name="shouts_ids[]"] {
 
 /*-- Search --*/
 
-.widget:not([id]) {
+#search-widget {
 	@extend %inline-widget;
 	#blog_keywords {
 		padding: 5px;
 		margin-left: -6px;
 		margin-bottom: 5px;
-	}
-}
-
-/*-- Total-posts --*/
-
-/* borrowed from libre 
- * TODO: understand code,
- *       figure out what the fuck is wrong with this code and why doesn't SASS parse it right,
- *       make less verbose
- */
-
-/*#shout_post > * > div[style] {
-	@at-root {
-		.total-posts {
-			@extend %noselect;
-			\/\* force alignment with main \*\/
-			margin-right: 1em;
-		}
-		&, .total-posts {
-			color: $t;
-			font-size: 0.8em;
-			& a {
-				%pagination-common {
-					position: relative;
-					display: inline-block;
-					@include dimensions(1.5em);
-					color: $t;
-					line-height: 1.5em;
-					text-align: center;
-					background: #ddd;
-					border-radius: 99px;
-					@include pre((transition: 0.3s ease-in-out));
-					&:after {
-						%pagination-ghost {
-							@include content("", absolute, -2px, -3px);
-							right: -3px;
-							display: block;
-							height: 100%;
-							border: solid $t;
-							border-width: 2px 0 2px 0;
-							@include pre((transition: 0.3s ease-in-out));
-						}
-					}
-				}
-				&:last-child {
-					&:after {
-						left: -100%;
-					}
-/*					&:before {
-						content: ">";
-						position: absolute;
-						left: -100%;
-						display: block;
-						color: $fg;
-						@include dimensions(100%);
-						margin-left: -1px;
-					}\*\/
-				}
-			}
-			&:hover a {
-				background: $t;
-				color: $fg;
-			}
-		}
-		&, .page-number + span {
-			strong {
-				@extend %pagination-common;
-				background: #aaa;
-				color: #555;
-				&:after {
-					@extend %pagination-ghost;
-				}
-			}
-		}
-		.total-posts:hover .page-number + span, &:hover {
-			strong {
-				color: $fg;
-				border-radius: 0;
-				background: #eee;
-				&:after {
-					border-color: $fg;
-				}
-			}
-		}
-		.total-posts:hover, &:hover {
-			a:after {
-				border-color: grey;
-			}
-		}
-	}
-}
-/*-- end pag --*/
-
-// TODO: wait for PythonNut's pagination module
-//       then adapt for own needs
-
-%pagination {
-/* %pagination */
-	& {
-		color: rgb(192, 192, 192);
-		float: left;
-		margin-left: -7px;
-		& > a, & > strong {
-			display: inline-block;
-			max-width: 11px;
-			background: rgb(225, 225, 226);
-			color: $t;
-			font-size: 75%;
-			line-height: 1.4em;
-			padding: 0 3.5px;
-			border-radius: 50px;
-			margin: 0 5px;
-			@include pre((box-sizing: border-box, transition: .3s ease-in-out));
-		}
-		& > strong:first-of-type {
-			background: rgb(204, 204, 205);
-		}
-		& > .page-sep {
-			@extend %none;
-		}
-	}
-}
-%pagination-hover {
-	/* %pagination-hover */
-	& {
-		& > a, & > strong {
-			max-width: none;
-			color: lighten($fg, 50%);
-			margin: 0 6px;
-			text: {
-				decoration: none;
-				@include WebKitCalc(indent, -.5px, -1px); // dammit WebKit
-			}
-			@include pre((transform: scale(1.4)));
-			&:hover {
-				@include WebKitCalc(text-indent, -1.5px, -2px);
-				@include pre((transform: scale(1.7)));
-			}
-		}
-	}
-}
-
-.total-posts {
-	position: relative;
-	@include move(-40px, 20px);
-	color: $t;
-	background-color: $t;
-	padding-bottom: 10px;
-	margin-top: 15px;
-	& > span:not([class]) {
-		@extend %pagination;
-	}
-	&:hover > span:not([class]) {
-		@extend %pagination-hover;
-		& > a:hover, & > strong:hover {
-			padding-left: 5px;
-		}
-	}
-}
-#shout_post > fieldset > div[style="text-align:center;"] {
-	@extend %pagination;
-	& > a, & > strong {
-		width: 16px;
-		text-indent: 0px;
-		padding: 0 6.5px;
-	}
-	&:hover {
-		@extend %pagination-hover;
-		& > a, & > strong {
-			@include pre((transform: scale(1.2)));
-			text-indent: -3px;
-			&:hover {
-				@include pre((transform: scale(1.5)));
-				@include WebKitCalc(text-indent, -2.5px, -3px);
-				padding: 0 6.5px;
-			}
-		}
 	}
 }
 
@@ -999,214 +825,23 @@ input[name="shouts_ids[]"] {
 }
 
 /*-- Post entry/comment form --*/
-// needs to be sexier
-
-#smiley-box, #smiley-box a, #main > form > .fields1 {
-	color: $t;
-}
-#smiley-box {
-	// needs spicing up
-	margin-top: 10px;
-	line-height: 1.4em;
-	strong {
-		color: $fg;
-	}
-	a:nth-last-of-type(2) {
-		position: relative;
-		top: -5px;
-		background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAB3RJTUUH3QkWCzk3oHoINwAAAYxJREFUOMulkzGS02AMhb/nZJihitmhtkI8qfERwgnwEXKELekIFUNFjmC6dLjcDnODzQEyu6KiYu1+d0SRBByTHWZAnZ6kX9J7+sXAzGw6gpKgPAmI+gFqd7/tw6O+k5utEvSZ4CmilthINIhWwTKR3l+kE911XTNsTJ5ZlWfW5mYLHrHcbJFn1uaZVcPAKs+snZsV/MXmZsWh0QpAZjYdoxuIVzv3Zu8z3bk3Q26O+H5KfbknXiR7wmJ7LBgFFUFtZukJWT18594QsR1BmRCUIarfZFMgTZ7A9FSEUzxERVCOBSlwfUzcffP03O5DXHAdUCbDxJnZ5WMEzswuh6slAW3AL/YVrGZmy3MHJvSR/cQcaxJErWDZm22tYN2X1MzScVBHxNfjJSpYIuo/ZASYZVZLek3Ep8MbJXB7Lxbu3vZlHHVd116kExGsn6fp1Y+u+37XdZtn6cQlQLQhNg/ijbu3c7MigivEhxv3+r9PWcOTBr0lYhui0kHegGK/s15CvNu5r84+8C/f+Scn37qt/TNLJgAAAABJRU5ErkJggg==') no-repeat 0px 0px/18px 18px $t !important;
-		font-size: 18px;
-	}
-}	
-.btnbbcode {
-	background: $t;
-	cursor: pointer;
-}
-[value=" i "], [value=" u "] {
-	text-transform: uppercase;
-}
-.genmed.nowrap {
-	float: right;
-	&:before {
-		content: 'Font size:';
-		color: $fg;
-		margin-right: -50px;
-	}
-}
-.gensmall {
-	height: 18px;
-	background: $bg;
-}
-#tabs a {
-	color: rgb(42, 42, 42);
-	&:hover {
-		color: rgb(70, 70, 70);
-	}
-}
-#main {
-	#message {
-		margin-top: -4.9em;
-		resize: vertical;
-	}
-}
-
-/*-- Icons for tabs --*/
-
-// $icons-tabz defined in _variables.scss
-#tabs ul {
-	li {
-		position: relative;
-		list-style-type: none;
-		padding-left: 1em;
-		margin-top: 1em;
-	}
-	:before, :after {
-		@extend %pseudo;
-	}
-	%pseudo-standard-tabz {
-		/* %pseudo-standard-tabz */
-		@include move(0, -1.5em);
-		background: $icons-tabz;
-		pointer-events: none;
-		-moz-appearance: none; // for reasons that will make you go "wtf?"
-	}
-	%pseudo-standard-border {
-		/* %pseudo-standard-border */
-		background: $bg;
-		border: {
-			style: solid;
-			color: $icons-tabz;
-		}
-	}
-
-	// no idea why, but for some reason really long strings won't be interpreted correctly //
-
-	// if li is turned to &, resulting selector in @extends is:                            //
-	//                                   #tabs ul li li                                    //
-	// which has a duplicate li                                                            //
-
-	/* options are :first-child */
-	li:first-child {
-		&:before, &:after {
-			@extend %pseudo-standard-tabz;
-			@extend %rte45;
-		}
-		&:before {
-			left: -16px;
-			@include dimensions(.4em, 1.3em);
-			z-index: 1;
-		}
-		&:after {
-			@extend %pseudo-standard-border;
-			@include move(-.2em, -1.3em);
-			@include dimensions(.3em, .9em);
-			border-width: 0 .3em;
-			border-radius: .6em;
-		}
-	}
-	/* permissions are :nth-child(2), exist only on post entry */
-	li:nth-child(2):not(:nth-last-child(2)) { // this is to make sure we're not affecting anything on the comment form
-		&:before, &:after, a:before, a:after {
-			@extend %pseudo-standard-tabz;
-		}
-		&:before {
-			left: -2.1em;
-			border-radius: 2em;
-			@include dimensions(1em);
-		}
-		&:after {
-			@include move(.3em, -1.2em);
-			@include dimensions(.8em, .3em);
-		}
-		a:before {
-			@extend %pseudo-standard-border;
-			@include move(.4em, -1em);
-			@include dimensions(.1em, .5em);
-			border-width: 0 2px 0;
-		}
-		a:after {
-			@include move(.4em, -1.87em);
-			@include dimensions(.2em);
-			background: $bg;
-			border-radius: .4em;
-		}
-	}
-	/* subscriptions are :nth-child(3) :nth-child(2) on comments */
-	li:nth-child(3):not(:last-child),
-	li:nth-child(2):nth-last-child(2) { // again, same deal, except subscriptions is in commenting form so it must also be included
-		&:before, &:after {
-			@extend %pseudo-standard-tabz;
-		}
-		&:before {
-			@include move(.75em, -1.55em);
-			@include dimensions(.45em);
-			border-radius: .6em;
-		}
-		&:after {
-			left: -1.6em;
-			@include dimensions(.8em);
-			background: $t;
-			border: {
-				width: .5em .5em 0 0;
-				style: double;
-				color: $icons-tabz $icons-tabz $t $t;
-				radius: 0 1em 0 0;
-			}
-		}
-	}
-	/* attachments are :nth-child(4), :nth-child(3) (or :last-child if you prefer) on comments */
-	li:nth-child(4),
-	li:nth-child(3):last-child {
-		&:before, &:after {
-			@extend %pseudo-standard-tabz;
-		}
-		&:before {
-			@extend %pseudo-standard-border;
-			@include move(-.4em, -1.8em);
-			border-width: 0 .8em .9em;
-			border-color: $icons-tabz $t;
-		}
-		&:after {
-			@include move(.2em, -1.25em);
-			@include dimensions(.5em, 1em);
-		}
-	}
-	/* tags are :last-child, exist only on post entry */
-	li:last-child:not(:nth-child(3)) {
-		&:before, &:after {
-			@extend %pseudo-standard-tabz;
-		}
-		&:before {
-			@extend %rte45;
-			@include move(-.2em, -1.6em);
-			@include dimensions(1em, 1.5em);
-			border-radius: 1em 1em 0 0;
-		}
-		&:after {
-			@include move(.2em, -1em);
-			@include dimensions(.3em);
-			background: $bg;
-			border-radius: .5em; // why the f doesn't chrome parse this right?
-		}
-	}
-}
-
+// TODO: fix for new AoPS modals
 
 
 /*-- Buttons --*/
-
-[type="button"]:not(.btnbbcode), [type="submit"], [type="reset"] {
-	@include linear-gradient((0: rgba(228, 228, 228, .97), 100: rgba(221, 221, 221, .97))); // direction and cover unit predefined in mixin
-	padding: 5px !important;
-	box-shadow: 0 0 1px rgba(0, 0, 0, .3) inset;
-	cursor: pointer;
-	&:hover {
-		@include linear-gradient((0: rgba(228, 228, 228, .86), 100: rgba(221, 221, 221, .86)));
-	}
-	&:active {
-		@include radial-gradient((0: rgba(213, 213, 213, .8), 60: rgba(201, 201, 201, .8), 100: rgba(190, 190, 190, .8)));
-	}
-}
+// TODO: fix for new AoPS layout
+//[type="button"]:not(.btnbbcode), [type="submit"], [type="reset"] {
+//	@include linear-gradient((0: rgba(228, 228, 228, .97), 100: rgba(221, 221, 221, .97))); // direction and cover unit predefined in mixin
+//	padding: 5px !important;
+//	box-shadow: 0 0 1px rgba(0, 0, 0, .3) inset;
+//	cursor: pointer;
+//	&:hover {
+//		@include linear-gradient((0: rgba(228, 228, 228, .86), 100: rgba(221, 221, 221, .86)));
+//	}
+//	&:active {
+//		@include radial-gradient((0: rgba(213, 213, 213, .8), 60: rgba(201, 201, 201, .8), 100: rgba(190, 190, 190, .8)));
+//	}
+//}
 
 /*-- Checkboxes and radio buttons --*/
 
@@ -1239,40 +874,40 @@ input[name="shouts_ids[]"] {
 	padding: 0 5px 2px;
 	border-radius: 16px;
 }
-#side [type="checkbox"] {
-	& + *:before {
-		@extend %checkbefore;
-		@include move(-2px, -20px);
-		padding: 1px 4px;
-		margin-right: -20px;
-	}
-	&:checked {
-		outline: none; // prevent distracting outline
-		+ *:before {
-			@extend %checkcheckedbefore;
-		}
-	}
-}
+//#side [type="checkbox"] {
+//	& + *:before {
+//		@extend %checkbefore;
+//		@include move(-2px, -20px);
+//		padding: 1px 4px;
+//		margin-right: -20px;
+//	}
+//	&:checked {
+//		outline: none; // prevent distracting outline
+//		+ *:before {
+//			@extend %checkcheckedbefore;
+//		}
+//	}
+//}
 
 /*-- Errors --*/
-
-#blog-errors {
-	position: absolute;
-	@include dimensions(100%, 4.3em);
-	background: rgb(197, 0, 0);
-	font: normal 1.6em/2em 'Open Sans', sans-serif;
-	padding: 10px;
-	margin: 0;
-	& + #wrapper #header h1 {
-		z-index: -2;
-	}
-}
-.error {
-	background: rgb(207, 0, 0);
-	color: black;
-	font: normal 1.4em/2.5em 'Open Sans', sans-serif;
-	padding: 10px;
-}
+// TODO fix for new AoPS classes
+//#blog-errors {
+//	position: absolute;
+//	@include dimensions(100%, 4.3em);
+//	background: rgb(197, 0, 0);
+//	font: normal 1.6em/2em 'Open Sans', sans-serif;
+//	padding: 10px;
+//	margin: 0;
+//	& + #wrapper #header h1 {
+//		z-index: -2;
+//	}
+//}
+//.error {
+//	background: rgb(207, 0, 0);
+//	color: black;
+//	font: normal 1.4em/2.5em 'Open Sans', sans-serif;
+//	padding: 10px;
+//}
 
 /*-- Misc. --*/
 
