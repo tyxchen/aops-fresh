@@ -2,6 +2,7 @@
 
 #side {
 	position: fixed;
+	box-sizing: content-box;
 	@include move(0, -340px);
 	height: 100%;
 	background: $sidebg;
@@ -76,20 +77,22 @@
 /*-- Widgets --*/
 // TODO: extend tags widget
 
-.widget, .block {
+#side > div {
 	padding: 1.5em !important;
 	margin: 0 !important;
 }
 .widget-title {
 	@extend %noselect;
+	box-sizing: content-box;
 	color: $sidefg;
 	border-bottom: 2px solid rgb(155, 202, 218);
 	overflow: hidden;
 }
-.widget {
+#side > div {
 	& > .widget-content {
 		position: fixed;
 		left: 280px;
+		box-sizing: content-box;
 		width: 340px;
 		min-height: 50px;
 		max-height: 250px;
@@ -127,7 +130,7 @@
 
 /*-- Description --*/
 
-#user-menu-widget {
+#side > #user-menu-widget {
 	a:link, a:visited, a:hover {
 		color: $sidefg !important;
 	}
@@ -168,7 +171,7 @@
 
 /*-- Archives --*/
 
-#archive-widget > .widget-content {
+#side > #archive-widget > .widget-content {
 	@extend %block-widget;
 	& > div {
 		display: block !important;
@@ -196,7 +199,7 @@
 /*-- SHOUT! SHOUT! SHOUT! --*/
 // TODO: fix classes & layout
 
-#shouts-widget > .widget-content {
+#side > #shouts-widget > .widget-content {
 	@extend %block-widget;
 }
 li.row1, li.row2 {
@@ -204,26 +207,14 @@ li.row1, li.row2 {
 	padding-top: 2px;
 	overflow-x: auto;
 }
-#shout_post {
-	& > .fields1 {
-		padding-top: 10px;
+.blog-shout-wrapper {
+	height: 100%;
+
+	.aops-scroll-bar {
+		display: none;
 	}
-	& > fieldset {
-		&[style="text-align:center"] {
-			@extend .fields1;
-			padding-bottom: 20px;
-		}
-		& > ul {
-			@extend .fields1;
-			margin-top: -12px;
-		}
-	}
-	#message {
-		max-width: 284px;
-		margin-top: 0 !important;
-	}
-	.quotecontent, .quotetitle, .codecontent {
-		width: auto;
+	.aops-scroll-content {
+		width: 100%;
 	}
 }
 .shout_footer::before {
@@ -242,10 +233,13 @@ input[name="shouts_ids[]"] {
 	margin: -2px 0 6px;
 	//@include pre(transition, .3s ease-in-out .1s); //credit to PythonNut
 }
+#message-box {
+	display: none; // temp fix
+}
 
 /*-- Search --*/
 
-#search-widget {
+#side > #search-widget {
 	@extend %inline-widget;
 	#blog_keywords {
 		padding: 5px;
