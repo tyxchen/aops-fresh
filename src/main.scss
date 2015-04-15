@@ -46,17 +46,17 @@
 
 /* TESTBED FOR MIXINS */
 
-#test {
-	@include pre((box-sizing: padding-box));
-	@include move(5px, 3em);
-	@include dimensions(10px);
-	@include content("!", sticky, 1337px);
-	@include WebKitCalc(padding, 2.5px, 2px);
-	@include linear-gradient(45deg, (0: white, 100: black), grey no-repeat 20px #{10px}/#{30px} 40px);
-	@include radial-gradient(circle, 16px, 40px 10px, (0: white, 10: black, 20: red, 30: gold, 40: rgba(100, 0, 0, .2), 50: #ffedcb, 60: rgba(0, 0, 10, 1), 100: blue));
-	color: black;
-	@include radial-gradient(ellipse, closest-side, center, (0: white, 100: black));
-}
+//#test {
+//	@include pre((box-sizing: padding-box));
+//	@include move(5px, 3em);
+//	@include dimensions(10px);
+//	@include content("!", sticky, 1337px);
+//	@include WebKitCalc(padding, 2.5px, 2px);
+//	@include linear-gradient(45deg, (0: white, 100: black), grey no-repeat 20px #{10px}/#{30px} 40px);
+//	@include radial-gradient(circle, 16px, 40px 10px, (0: white, 10: black, 20: red, 30: gold, 40: rgba(100, 0, 0, .2), 50: #ffedcb, 60: rgba(0, 0, 10, 1), 100: blue));
+//	color: black;
+//	@include radial-gradient(ellipse, closest-side, center, (0: white, 100: black));
+//}
 
 // General
 @import "modules/general";
