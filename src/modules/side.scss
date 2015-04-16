@@ -199,6 +199,8 @@
 	border-bottom: 1px dashed $sidefg;
 	padding: 5px;
 	width: 90%;
+	text-indent: 0;
+
 	&:last-child {
 		border-bottom: none;
 	}
