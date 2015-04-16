@@ -83,13 +83,12 @@
 }
 .widget-title {
 	@extend %noselect;
-	box-sizing: content-box;
 	color: $sidefg;
 	border-bottom: 2px solid rgb(155, 202, 218);
 	overflow: hidden;
 }
 #side > div {
-	& > .widget-content {
+	> .widget-content {
 		position: fixed;
 		left: 280px;
 		box-sizing: content-box;
@@ -106,21 +105,27 @@
 		border-radius: 1px;
 		@include pre((transition: opacity .3s ease-in-out));
 	}
+	> .widget-header {
+		padding: 5px;
+		cursor: default;
+		border-radius: 10px;
+	}
+
 	&:hover {
-		& > .widget-header > .widget-title {
+		> .widget-header > .widget-title {
 			color: darken($sidebg, 11%);
+			padding-top: 2px;
 			border-bottom: none;
 		}
-		& > .widget-header {
+		> .widget-header {
 			background: rgb(155, 202, 218);
-			padding: 5px;
-			cursor: default;
-			border-radius: 10px;
 		}
-		& > .widget-content {
+		> .widget-content {
 			display: block;
 		}
 	}
+
+	// Widget positioning code
 	@for $i from 2 through 9 {
 		&:nth-of-type(#{$i}) > .widget-content {
 			top: 65px * $i - 55px;
@@ -207,11 +212,11 @@ li.row1, li.row2 {
 	padding-top: 2px;
 	overflow-x: auto;
 }
-.blog-shout-wrapper {
+#side > #shouts-widget .blog-shout-wrapper {
 	height: 100%;
 
 	.aops-scroll-bar {
-		display: none;
+		display: none !important;
 	}
 	.aops-scroll-content {
 		width: 100%;
