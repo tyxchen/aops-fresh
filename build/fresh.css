@@ -747,28 +747,28 @@ div.quotetitle, div.quotecontent {
   display: block;
 }
 #side > div:nth-of-type(2) > .widget-content {
-  top: 75px;
+  top: 81px;
 }
 #side > div:nth-of-type(3) > .widget-content {
-  top: 140px;
+  top: 154px;
 }
 #side > div:nth-of-type(4) > .widget-content {
-  top: 205px;
+  top: 227px;
 }
 #side > div:nth-of-type(5) > .widget-content {
-  top: 270px;
+  top: 300px;
 }
 #side > div:nth-of-type(6) > .widget-content {
-  top: 335px;
+  top: 373px;
 }
 #side > div:nth-of-type(7) > .widget-content {
-  top: 400px;
+  top: 446px;
 }
 #side > div:nth-of-type(8) > .widget-content {
-  top: 465px;
+  top: 519px;
 }
 #side > div:nth-of-type(9) > .widget-content {
-  top: 530px;
+  top: 592px;
 }
 
 /*-- Description --*/

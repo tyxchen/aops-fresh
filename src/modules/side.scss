@@ -135,7 +135,7 @@
 	// Widget positioning code
 	@for $i from 2 through 9 {
 		&:nth-of-type(#{$i}) > .widget-content {
-			top: 65px * $i - 55px;
+			top: 73px * $i - 65px;
 		}
 	}
 }
