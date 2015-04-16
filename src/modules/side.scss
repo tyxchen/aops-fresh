@@ -216,24 +216,43 @@
 /*-- SHOUT! SHOUT! SHOUT! --*/
 // TODO: fix classes & layout
 
-#side > #shouts-widget > .widget-content {
+#side > #shouts-widget {
+	> .widget-content {
 	@extend %block-widget;
+	}
+	> #message-box {
+		position: fixed;
+		left: 340px;
+		top: 10px;
+		display: none;
+		width: 340px;
+		height: 130px;
+		padding: 0 20px;
+	}
+	&:hover > #message-box {
+		display: block;
+	}
+	.blog-shout-wrapper {
+		height: 100%;
+		background-color: $sidebg;
+		padding-top: 10px;
+		margin-top: 140px;
+		z-index: 10;
+
+		.aops-scroll-bar {
+			display: none !important;
+		}
+		.aops-scroll-content {
+			width: 100%;
+		}
+	}
 }
 li.row1, li.row2 {
 	width: 300px;
 	padding-top: 2px;
 	overflow-x: auto;
 }
-#side > #shouts-widget .blog-shout-wrapper {
-	height: 100%;
 
-	.aops-scroll-bar {
-		display: none !important;
-	}
-	.aops-scroll-content {
-		width: 100%;
-	}
-}
 .shout_footer::before {
 	content: '> ';
 	font-weight: bold;
@@ -250,8 +269,14 @@ input[name="shouts_ids[]"] {
 	margin: -2px 0 6px;
 	//@include pre(transition, .3s ease-in-out .1s); //credit to PythonNut
 }
-#message-box {
-	display: none; // temp fix
+#message, #shout-helper {
+	position: relative;
+	display: block !important;
+	z-index: 10;
+}
+#message {
+	width: 100%;
+	resize: none;
 }
 
 /*-- Search --*/
