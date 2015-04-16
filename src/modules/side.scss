@@ -144,9 +144,10 @@
 		color: $sidefg;
 		font-weight: bold !important;
 		font-size: 13px;
-		padding-right: 144px;
-		padding-bottom: 5px;
+		padding: 5px 0;
+		padding-right: 142px;
 		border-bottom: 2px solid rgb(155, 202, 218);
+		margin-left: 5px;
 		cursor: default;
 	}
 	& > div {
@@ -156,8 +157,10 @@
 		&:before {
 			background: rgb(155, 202, 218);
 			color: darken($sidebg, 11%);
-			padding: 10px 139px 10px 5px;
+			padding: 11px 146px 11px 5px;
+			border-bottom: none;
 			border-radius: 10px;
+			margin-left: 0;
 		}
 		& > div {
 			position: fixed;
