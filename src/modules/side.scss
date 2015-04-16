@@ -72,6 +72,13 @@
 		background: rgba(255, 255, 255, .5) !important;
 		padding: 1px .4999px; // so low screen resolutions won't have an ugly 1px of padding
 	}
+	.cmty-itembox {
+		height: 100%;
+
+		.aops-scroll-bar {
+			display: none !important;
+		}
+	}
 }
 
 /*-- Widgets --*/
