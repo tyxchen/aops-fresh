@@ -26,8 +26,7 @@
 div.entry {
 	padding-bottom: 40px;
 	@extend %borderless;
-}
-.entry {
+
 	h1 a:link, h1 a:visited, h2 a:link, h2 a:visited {
 		color: $fg;
 		line-height: 1.5em;
@@ -46,7 +45,7 @@ div.entry {
 	strong {
 		& > a:link, & > a:visited {
 			display: inline-block;
-			color: rgb(60, 60, 60);
+			color: rgb(60, 60, 60) !important;
 			font: normal 1em/1 $mss;
 			@include pre((transform: skew(-10deg)));
 		}

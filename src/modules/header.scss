@@ -38,7 +38,9 @@
 		position: relative;
 		left: 100px;
 		width: calc(100% - 100px); // allow scrolling
+		color: $fg;
 		font: 25pt/2em 'Times New Roman', times, serif;
+		text-decoration: none;
 		text-align: left !important;
 		padding-bottom: 24px;
 		overflow: hidden;
