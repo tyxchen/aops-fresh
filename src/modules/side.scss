@@ -12,7 +12,7 @@
 	padding-right: 50px;
 	box-shadow: 0 0 5px $sidebg;
 	z-index: 100;
-	@include pre((transition: .5s ease));
+	transition: .5s ease;
 	&:after {
 		@include content('+', fixed, 0, 0);
 		display: block;
@@ -21,7 +21,7 @@
 		color: rgb(245, 245, 255);
 		font: 21pt 'Open Sans', Helvetica, sans-serif;
 		padding: 20px 12px 17px;
-		@include pre((transition-delay: .35s));
+		transition-delay: .35s;
 	}
 	&:before {
 		@include content('', fixed, 31px, 39px);
@@ -37,7 +37,7 @@
 		left: 0;
 		&:after {
 			color: $t;
-			@include pre((transition-delay: 0s));
+			transition-delay: 0s;
 		}
 		&:before {
 			@extend %none;
@@ -46,7 +46,7 @@
 
 	a:link, a:visited {
 		color: rgb(216, 241, 250);
-		@include pre((transition: .2s ease-in-out));
+		transition: .2s ease-in-out;
 	}
 	a:hover {
 		color: rgb(207, 242, 255);
@@ -110,7 +110,7 @@
 		overflow-x: hidden;
 		resize: both;
 		border-radius: 1px;
-		@include pre((transition: opacity .3s ease-in-out));
+		transition: opacity .3s ease-in-out;
 	}
 	> .widget-header {
 		padding: 5px;
@@ -193,7 +193,7 @@
 		max-height: 0px;
 		margin: 20px 0 -10px;
 		overflow: hidden;
-		@include pre((transition: max-height .5s ease-in-out));
+		transition: max-height .5s ease-in-out;
 	}
 	& > div[style="display: block;"], & > div:not([style]) {
 		max-height: 250em;

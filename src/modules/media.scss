@@ -79,7 +79,7 @@
 		a:before, a:after {
 			content: '\00A0';
 			position: absolute;
-			@include pre((transform: rotate(45deg)));
+			transform: rotate(45deg);
 		}
 		a:before {
 			@include moveright(8px, 4px);

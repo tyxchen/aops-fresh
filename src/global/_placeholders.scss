@@ -8,7 +8,7 @@
 }
 %rte45 {
 	/* %rte45 */
-	@include pre((transform: rotate(45deg)));
+	transform: rotate(45deg);
 }
 %block-widget {
 	/* %block-widget */
@@ -43,5 +43,5 @@
 }
 %noselect {
 	/* %noselect */
-	@include pre((user-select: none));
+	user-select: none;
 }

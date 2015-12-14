@@ -47,11 +47,11 @@ div.entry {
 			display: inline-block;
 			color: rgb(60, 60, 60) !important;
 			font: normal 1em/1 $mss;
-			@include pre((transform: skew(-10deg)));
+			transform: skew(-10deg);
 		}
 		& > a:hover {
 			color: $fg;
-			@include pre((transform: skew(0deg)));
+			transform: skew(0deg);
 		}
 	}
 	& > h2 {
@@ -126,7 +126,7 @@ div.comment {
 	%pseudo-standard {
 		/* %pseudo-standard */
 		background: $icons;
-		@include pre((transition: .2s ease));
+		transition: .2s ease;
 	}
 	%pseudo-cover {
 		/* %pseudo-cover */
@@ -152,7 +152,7 @@ div.comment {
 		:after {
 			@include move(-1px, -10px);
 			@include dimensions(4px);
-			@include pre((transform: skew(-10deg, -10deg)));
+			transform: skew(-10deg, -10deg);
 		}
 		&:hover {
 			:before, :after {
