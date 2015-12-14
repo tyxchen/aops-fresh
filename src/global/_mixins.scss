@@ -7,135 +7,159 @@
 
 //-- BEGIN PARTIAL --//
 
-// Autoprefixer
-// Forked from Libre's autoprefixer
-@mixin pre($property, $default: (webkit, moz, o)) {
-	$list: (
-			user-select: (webkit, moz, ms),
-			transform  : (webkit, ms, o),
-			transition : (webkit, o),
-			animation  : (webkit, o),
-			box-sizing : (moz)
-		);
-	@each $prop, $value in $property {
-		@each $pre in map-get($list, $prop) or $default {
-			// GPU on WebKit
-			@if $prop == "transform" and $pre == "webkit" {
-				/* add GPU acceleration on WebKit */
-				-#{$pre}-#{$prop}: #{$value} translateZ(0px);
-			} @else {
-				-#{$pre}-#{$prop}: #{$value};
-			}
-		}
-		#{$prop}: #{$value};
-	}
-}
 
-// Move selector
-@mixin move($a, $b: null) {
-	top: #{$a};
-	@if $b == null {
-		left: #{$a};
+// Positions an element
+//
+// $y: The value for the `top` property, as well as the `left` property if $x is null
+// [$x]: The value for the `left` property
+//
+// @include move(1px, 2px)
+// → top: 1px;
+// → left: 2px;
+// @include move(1px)
+// → top: 1px;
+// → left: 1px;
+@mixin move($y, $x: null) {
+	top: #{$y};
+	@if $x == null {
+		left: #{$y};
 	} @else {
-		left: #{$b};
+		left: #{$x};
 	}
 }
 
-// Dimensions of selector
-@mixin dimensions($a, $b: null) {
-	width: #{$a};
-	@if $b == null {
-		height: #{$a};
+// Defines the dimensions of an element
+//
+// $x: The width of the element, as well as its height if $y is null
+// [$y]: The height of the element
+//
+// @include dimensions(1em, 2px)
+// → width: 1em;
+// → height: 2px;
+// @include dimensions(1em)
+// → width: 1em;
+// → width: 1em;
+@mixin dimensions($x, $y: null) {
+	width: #{$x};
+	@if $y == null {
+		height: #{$x};
 	} @else {
-		height: #{$b};
+		height: #{$y};
 	}
 }
 
-// One-line content mixin for pseudo-elements
-@mixin content($content:"", $pos: null, $a: null, $b: null) {
+// A wrapper mixin for pseudo-elements
+//
+// $content: The text content of the PE
+// $pos: The method by which the PE will be positioned
+// $y: The position of the PE on the y-axis
+// [$x]: The position of the PE on the x-axis. Optional per =position docs
+//
+// @include content("", absolute, 1px, 2px)
+// → content: "";
+// → position: absolute;
+// → top: 1px;
+// → left: 2px;
+@mixin content($content, $pos, $y, $x: null) {
 	content: $content;
-	@if $pos != null and $a != null {
-		position: $pos;
-		@include move($a, $b);
-	} @else {
-		@warn "Use of the content property is preferred instead of the content mixin in this case."; // self-reminder
-	}
+	position: $pos;
+	@include move($y, $x);
 }
 
-// linear-gradient mixin
-// Thanks to PythonNut for this mixin
-// http://www.artofproblemsolving.com/Forum/blog.php?u=81377&b=98748&r=151953#r151953
-// extra mods by me
-@mixin linear-gradient($dir, $stops: null, $options: null) {
+// Produces linear gradients with a programmatic form.
+// Thanks to PythonNut for this mixin: https://aops.com/community/c2663h1046577
+// Extra modifications by me
+//
+// $dir: Direction of the gradient. If $stops is null, then this takes the value 'bottom' and is
+//	passed as the value for $stops
+// [$stops]: A map of colour stops, in the form:
+//
+//	(
+//		<stop>: <colour>
+//		…
+//	)
+//	where <stop> = [ <number> | <length> ]
+//
+//	A number passed to this argument will be treated as a percentage
+//
+// linear-gradient(right, (0: white, 100: black))
+// → background-image: linear-gradient(to right, white 0%, black 100%)
+// linear-gradient((0: white, 100: black))
+// → background-image: linear-gradient(to bottom, white 0%, black 100%)
+@mixin linear-gradient($dir, $stops: null) {
+	// When only one argument is provided, set $dir to its default value
 	@if $stops == null {
 		$stops: $dir;
 		$dir  : "bottom";
 	}
 
-	$idir: unquote(if(type-of($dir) != number,
-			map-get((
-			"top"   : "bottom, ",
-			"bottom": "",         // implicitly top
-			"left"  : "right, ",
-			"right" : "left, "
-			), quote($dir) or $dir),
-		$dir + ", "));
-	$dir: unquote(if(type-of($dir) != number, "to #{$dir}, ", $dir + ", "));
+	// $dir: bottom → 'to bottom', 45deg → 45deg
+	$dir: if(type-of($dir) != number, "to #{$dir}", $dir);
 
+	// Parse the colour stops.
 	$parsed_stops: "";
-	$first: false;
+	$first: true;
 	@each $stop, $colour in $stops {
+		// $stop: 10 → 10%, 10px → 10px
 		$stop: $stop + if(unit($stop) == "", "%", unit($stop));
-		@if $first == true {
+
+		@if $first == false {
 			$parsed_stops: $parsed_stops + ", ";
 		} @else {
-			$first: true;
+			$first: false;
 		}
+
 		$parsed_stops: $parsed_stops + "#{$colour} #{$stop}";
 	}
 
-	$options: if($options != null, unquote(" " + $options), null);
-
-	background: -webkit-linear-gradient($idir#{$parsed_stops})#{$options};
-	background: -o-linear-gradient($idir#{$parsed_stops})#{$options};
-	background: linear-gradient($dir#{$parsed_stops})#{$options};
+	background-image: linear-gradient(unquote("#{$dir}, #{$parsed_stops}"));
 }
 
-// radial-gradient mixin
-// based on above
-@mixin radial-gradient($type, $extent: null, $pos: null, $stops: null, $options: null) {
-	@if $extent == null { // only need to specify extent since that pretty much solves everything for the purposes of this css
+// Produces radial gradients with a programmatic form.
+//
+//
+// $type: The type of radial gradient. If this is the only argument, then:
+//	- This takes the value 'ellipse'
+//	- $extent takes the value 'farthest-corner'
+//	- $pos takes the value 'center'
+//	- The value passed to this argument is passed to $stops
+// [$extent]: A keyword describing the size of the resulting gradient. See spec for details.
+// [$pos]: A <position> describing the location of the gradient's centre. See spec for details.
+// [$stops]: See documentation for $stops in =linear-gradient
+//
+// radial-gradient(circle, 16px, 40px 10px, (0: white, 100: black))
+// → background-image: radial-gradient(circle 16px at 40px 10px, white 0%, black 100%);
+// radial-gradient((0: white, 100: black))
+// → background-image: radial-gradient(ellipse at center, white 0%, black 100%)
+@mixin radial-gradient($type, $extent: null, $pos: null, $stops: null) {
+	// When only one argument is provided, set the rest to their default values
+	@if $extent == null {
 		$stops : $type;
 		$type  : "ellipse";
 		$extent: "farthest-corner";
 		$pos   : "center";
 	}
 
-	$type: $type + " ";
+	// Reduce the verbosity of the produced code; as a default, 'farthest-corner' need not be written
+	$extent: if($extent == "farthest-corner", "", " " + $extent);
 
-	$iextent: unquote(if(type-of($extent) == number and $type == "circle", null, $extent + ", ")); // can't get legacy syntax to support circles with radius
-	$extent : unquote(if($extent == "farthest-corner", null, if(type-of($extent) == number, $extent, if($pos != null, $extent, $extent + ", "))));
-
-	$ipos: unquote(if($pos != "center", $pos + ", ", null));
-	$pos : unquote("at " + $pos + ", ");
-
+	// Parse the colour stops.
 	$parsed_stops: "";
-	$first: false;
+	$first: true;
 	@each $stop, $colour in $stops {
+		// $stop: 10 → 10%, 10px → 10px
 		$stop: $stop + if(unit($stop) == "", "%", unit($stop));
-		@if $first == true {
+
+		@if $first == false {
 			$parsed_stops: $parsed_stops + ", ";
 		} @else {
-			$first: true;
+			$first: false;
 		}
+
 		$parsed_stops: $parsed_stops + "#{$colour} #{$stop}";
 	}
 
-	$options: if($options != null, unquote(" " + $options), null);
-
-	background: -webkit-radial-gradient($ipos#{$type}$iextent#{$parsed_stops})#{$options};
-	background: -o-radial-gradient($ipos#{$type}$iextent#{$parsed_stops})#{$options};
-	background: radial-gradient(#{$type}$extent$pos#{$parsed_stops})#{$options};
+	background-image: radial-gradient(unquote("#{$type}#{$extent} at #{$pos}, #{$parsed_stops}"));
 }
 
 //-- END PARTIAL --//
